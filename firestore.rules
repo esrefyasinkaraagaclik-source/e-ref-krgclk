@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() 
+        && request.auth.token.email == 'esrefyasinkaraagaclik@gmail.com';
+    }
+
+    // User Profiles
+    match /users/{userId} {
+      // List operation (needed for Leaderboard and Admin Panel)
+      // We allow signed in users to list for the leaderboard
+      allow list: if isSignedIn();
+      
+      // Get operation (public profile view)
+      allow get: if isSignedIn();
+      
+      // Create profile
+      allow create: if isOwner(userId);
+      
+      // Update profile
+      allow update: if (
+        isAdmin() || // Admins can ban users
+        (isOwner(userId) && 
+         !request.resource.data.diff(resource.data).affectedKeys().hasAny(['isAdmin', 'isBanned', 'uid', 'email']))
+      );
+    }
+    
+    // Scores and Progress
+    match /moduleScores/{scoreId} {
+      allow read: if true;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+  }
+}
