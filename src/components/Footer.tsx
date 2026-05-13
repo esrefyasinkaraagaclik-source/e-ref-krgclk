@@ -45,7 +45,7 @@ export function Footer() {
                 </div>
               </li>
               <li>
-                <div className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Mustafa Kaan</div>
+                <div className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Mustafa Kaan Gider</div>
                 <div className="flex flex-col gap-2">
                   <a href="https://www.instagram.com/mustafakaan.exe" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors">
                     <Instagram className="w-4 h-4" />

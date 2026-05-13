@@ -176,7 +176,7 @@ export interface Module {
   theory?: ContentBlock[];
 }
 
-export interface Theme {
+export interface Konu {
   id: string;
   title: string;
   description: string;

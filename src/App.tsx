@@ -18,6 +18,8 @@ import { References } from './pages/References';
 import { VirtualLab } from './pages/VirtualLab';
 import ProjectPoster from './pages/ProjectPoster';
 import ExerciseBank from './pages/ExerciseBank';
+import { LeaderboardPage } from './pages/LeaderboardPage';
+import { Profile } from './pages/Profile';
 import { MainLayout } from './components/MainLayout';
 import { Navbar } from './components/Navbar';
 import { AnimatedBackground } from './components/AnimatedBackground';
@@ -78,6 +80,8 @@ export default function App() {
                   <Route path="/lab" element={<VirtualLab />} />
                   <Route path="/poster" element={<ProjectPoster />} />
                   <Route path="/exercises" element={<ExerciseBank />} />
+                  <Route path="/leaderboard" element={<LeaderboardPage />} />
+                  <Route path="/profile" element={<Profile />} />
                 </Route>
               </Route>
               

@@ -18,6 +18,7 @@ export interface UserProfile {
   isGuest?: boolean;
   isBanned?: boolean;
   isAdmin?: boolean;
+  lastIp?: string;
 }
 
 interface AuthContextType {
@@ -35,8 +36,12 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Admin email as requested by user
-const ADMIN_EMAIL = "esrefyasinkaraagaclik@gmail.com";
+// Admin emails as requested by user
+const ADMIN_EMAILS = [
+  "esrefyasinkaraagaclik@gmail.com", 
+  "mustafakaanresmi@gmail.com",
+  "mehmetakiferden@gmail.com"
+];
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
@@ -44,17 +49,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchIp = async () => {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip;
+      } catch (e) {
+        console.warn("IP could not be fetched");
+        return null;
+      }
+    };
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       if (user) {
-        const isAdmin = user.email === ADMIN_EMAIL;
+        const currentIp = await fetchIp();
+        const isAdmin = user.email ? ADMIN_EMAILS.includes(user.email) : false;
         const fallbackProfile: UserProfile = {
           uid: user.uid,
           displayName: user.isAnonymous ? 'Misafir Öğrenci' : (user.displayName || 'Öğrenci'),
-          email: user.email || '',
+          email: user.email || 'misafir@virtual-lab.com',
           badges: [],
           completedModules: [],
-          isAdmin: isAdmin
+          totalScore: 0,
+          isBanned: false,
+          isAdmin: isAdmin,
+          lastIp: currentIp || undefined
         };
 
         try {
@@ -73,10 +93,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               return;
             }
 
+            // Update IP if it changed or is missing
+            if (currentIp && data.lastIp !== currentIp) {
+              await updateDoc(docRef, { lastIp: currentIp });
+            }
+
+            // Award welcome badge if missing
+            if (!data.badges?.includes('welcome')) {
+              await updateDoc(docRef, {
+                badges: arrayUnion('welcome'),
+                totalScore: increment(1)
+              });
+              data.badges = [...(data.badges || []), 'welcome'];
+              data.totalScore = (data.totalScore || 0) + 1;
+            }
+
             setUserProfile({
               ...fallbackProfile,
               ...data,
-              isAdmin: isAdmin, // Always override with true email check
+              isAdmin: isAdmin,
+              lastIp: currentIp || data.lastIp,
               completedModules: data.completedModules || [],
               badges: data.badges || [],
               highScores: data.highScores || {}
@@ -121,10 +157,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const checkAndAwardBadges = async (completedCount: number, currentBadges: string[]) => {
+    if (!currentUser) return [];
+
+    const badgeMilestones = [
+      { id: 'first_step', count: 1, name: 'Kimya Yolcusu' },
+      { id: 'chemist_apprentice', count: 2, name: 'Element Uzmanı' },
+      { id: 'lab_technician', count: 4, name: 'Deney Ustası' },
+      { id: 'molecular_master', count: 6, name: 'Moleküler Deha' },
+      { id: 'grand_chemist', count: 9, name: 'Nobel Adayı' }
+    ];
+
+    const newBadges: string[] = [];
+    for (const milestone of badgeMilestones) {
+      if (completedCount >= milestone.count && !currentBadges.includes(milestone.id)) {
+        newBadges.push(milestone.id);
+      }
+    }
+
+    if (newBadges.length > 0) {
+      try {
+        const docRef = doc(db, 'users', currentUser.uid);
+        await updateDoc(docRef, {
+          badges: arrayUnion(...newBadges)
+        });
+        return newBadges;
+      } catch (error) {
+        console.warn("Badge update failed in Firestore:", error);
+      }
+    }
+    return [];
+  };
+
   const completeModule = async (moduleId: string) => {
     if (!currentUser || !userProfile) return;
     if (userProfile.completedModules.includes(moduleId)) return; // Already completed
 
+    const newCompletedModules = [...userProfile.completedModules, moduleId];
+    const newBadgesFromMilestones = await checkAndAwardBadges(newCompletedModules.length, userProfile.badges);
+    
     try {
       const docRef = doc(db, 'users', currentUser.uid);
       await updateDoc(docRef, {
@@ -136,7 +207,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     
     setUserProfile(prev => prev ? {
       ...prev,
-      completedModules: [...prev.completedModules, moduleId]
+      completedModules: newCompletedModules,
+      badges: [...prev.badges, ...newBadgesFromMilestones]
     } : null);
   };
 
@@ -193,13 +265,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       if (scoreDifference > 0) {
-        await updateDoc(userRef, {
+        const newTotalScore = (userProfile.totalScore || 0) + scoreDifference;
+        const updates: any = {
           totalScore: increment(scoreDifference)
-        });
+        };
+
+        // Check for score_king badge
+        if (newTotalScore >= 1000 && !userProfile.badges.includes('score_king')) {
+          updates.badges = arrayUnion('score_king');
+        }
+
+        await updateDoc(userRef, updates);
         
         setUserProfile(prev => prev ? {
           ...prev,
-          totalScore: (prev.totalScore || 0) + scoreDifference
+          totalScore: newTotalScore,
+          badges: updates.badges ? [...prev.badges, 'score_king'] : prev.badges
         } : null);
       }
 

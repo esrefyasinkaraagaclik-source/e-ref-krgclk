@@ -61,9 +61,12 @@ export function HeroSection({ onStart }: HeroSectionProps) {
             <div className="absolute inset-0 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
             <div className="w-48 h-48 rounded-full border-4 border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.5)] overflow-hidden bg-slate-900 z-10 flex items-center justify-center">
               <img 
-                src="https://i.hizliresim.com/27jdo2j.png" 
+                src="/logo.png" 
                 alt="Logo" 
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = "https://i.hizliresim.com/27jdo2j.png";
+                }}
                 referrerPolicy="no-referrer"
               />
             </div>

@@ -51,6 +51,7 @@ interface UserData {
   email: string;
   isBanned?: boolean;
   isAdmin?: boolean;
+  lastIp?: string;
 }
 
 export function AdminPanel() {
@@ -163,6 +164,7 @@ export function AdminPanel() {
                 <tr>
                   <th className="px-6 py-4">Kullanıcı</th>
                   <th className="px-6 py-4">E-Posta</th>
+                  <th className="px-6 py-4">Son IP</th>
                   <th className="px-6 py-4">Durum</th>
                   <th className="px-6 py-4 text-right">İşlemler</th>
                 </tr>
@@ -190,6 +192,9 @@ export function AdminPanel() {
                     </td>
                     <td className="px-6 py-4 text-sm text-slate-300">
                       {user.email}
+                    </td>
+                    <td className="px-6 py-4 text-sm font-mono text-slate-400">
+                      {user.lastIp || 'Bilinmiyor'}
                     </td>
                     <td className="px-6 py-4">
                       {user.isBanned ? (

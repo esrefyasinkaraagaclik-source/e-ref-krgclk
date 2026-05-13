@@ -18,7 +18,7 @@ export function ModuleView() {
   const navigate = useNavigate();
   const location = useLocation();
   const { userProfile, completeModule, awardBadge, submitScore } = useAuth();
-  const { themes: curriculum, loading } = useCurriculum();
+  const { konular: curriculum, loading } = useCurriculum();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -46,12 +46,12 @@ export function ModuleView() {
 
   // Find module
   let moduleData = null;
-  let themeData = null;
-  for (const theme of curriculum) {
-    const mod = theme.modules.find((m) => m.id === moduleId);
+  let konuData = null;
+  for (const konu of curriculum) {
+    const mod = konu.modules.find((m) => m.id === moduleId);
     if (mod) {
       moduleData = mod;
-      themeData = theme;
+      konuData = konu;
       break;
     }
   }
@@ -76,7 +76,7 @@ export function ModuleView() {
     }
   }, [userProfile, moduleData, location.state]);
 
-  if (!moduleData || !themeData) {
+  if (!moduleData || !konuData) {
     return (
       <div className="text-center py-20 text-slate-400">Modül bulunamadı.</div>
     );
@@ -262,7 +262,7 @@ export function ModuleView() {
 
       <div className="mb-8">
         <div className="text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-2">
-          {themeData.title}
+          {konuData.title}
         </div>
         <h1 className="text-3xl font-bold font-display text-white mb-4">
           {moduleData.title}
@@ -649,11 +649,11 @@ export function ModuleView() {
                   </div>
 
                   <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden mb-8">
-                    <div
-                      className="h-full bg-cyan-500 transition-all duration-500"
-                      style={{
-                        width: `${(currentQuestion / (moduleData.questions?.length ?? 1)) * 100}%`,
-                      }}
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${(currentQuestion / (moduleData.questions?.length ?? 1)) * 100}%` }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
+                      className="h-full bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]"
                     />
                   </div>
 

@@ -6,6 +6,7 @@ import * as THREE from 'three';
 interface AtomProps {
   position: [number, number, number];
   element: string;
+  charge?: string;
 }
 
 interface BondProps {
@@ -33,20 +34,45 @@ const elementSizes: Record<string, number> = {
   'Na': 0.65,
 };
 
-function Atom({ position, element }: AtomProps) {
+function Atom({ position, element, charge }: AtomProps) {
   const color = elementColors[element] || '#cccccc';
   const size = elementSizes[element] || 0.4;
   const textColor = (element === 'H' || element === 'C' || element === 'He') ? '#000000' : '#ffffff';
   const outlineColor = (element === 'H' || element === 'C' || element === 'He') ? '#ffffff' : '#000000';
+  
+  const meshRef = useRef<THREE.Mesh>(null);
+  
+  useFrame((state) => {
+    if (meshRef.current && charge) {
+      const s = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
+      meshRef.current.scale.set(s, s, s);
+    }
+  });
 
   return (
     <group position={position}>
-      <Sphere args={[size, 32, 32]}>
-        <meshStandardMaterial color={color} roughness={0.3} metalness={0.1} />
+      <Sphere ref={meshRef} args={[size, 32, 32]}>
+        <meshStandardMaterial 
+          color={color} 
+          roughness={0.3} 
+          metalness={0.1} 
+          emissive={charge ? color : '#000000'}
+          emissiveIntensity={charge ? 0.5 : 0}
+        />
       </Sphere>
+      {charge && (
+        <Sphere args={[size * 1.2, 32, 32]}>
+          <meshStandardMaterial 
+            color={color} 
+            transparent 
+            opacity={0.1} 
+            side={THREE.BackSide} 
+          />
+        </Sphere>
+      )}
       <Billboard>
         <Text
-          position={[0, 0, size + 0.05]}
+          position={[0, 0, size + 0.1]}
           fontSize={size * 0.8}
           color={textColor}
           anchorX="center"
@@ -54,7 +80,7 @@ function Atom({ position, element }: AtomProps) {
           outlineWidth={0.02}
           outlineColor={outlineColor}
         >
-          {element}
+          {element}{charge}
         </Text>
       </Billboard>
     </group>
@@ -108,6 +134,14 @@ interface MoleculeViewerProps {
 export function MoleculeViewer({ model, disableInteraction = false, hideLabels = false, className }: MoleculeViewerProps) {
   const containerClass = className || "w-full h-[400px] bg-slate-900 rounded-xl overflow-hidden relative border border-slate-800";
   
+  // Try to detect charge from formula (e.g., Na+, Cl-, Mg2+, SO4 2-)
+  // We look for superscript or standard signs at the end of the formula
+  const chargeMatch = model.formula.match(/([⁺⁻\+\-]+)$/);
+  const rawCharge = chargeMatch ? chargeMatch[0] : undefined;
+  
+  // Normalize superscript characters for 3D text rendering (standard fonts lack superscript glyphs)
+  const charge = rawCharge ? rawCharge.replace(/⁺/g, '+').replace(/⁻/g, '-') : undefined;
+
   return (
     <div className={containerClass}>
       {!hideLabels && (
@@ -129,7 +163,12 @@ export function MoleculeViewer({ model, disableInteraction = false, hideLabels =
           
           <RotatingGroup>
             {model.atoms.map((atom, i) => (
-              <Atom key={`atom-${i}`} position={atom.position} element={atom.element} />
+              <Atom 
+                key={`atom-${i}`} 
+                position={atom.position} 
+                element={atom.element} 
+                charge={model.atoms.length === 1 ? charge : undefined}
+              />
             ))}
             {model.bonds.map((bond, i) => (
               <Bond key={`bond-${i}`} start={bond.start} end={bond.end} />

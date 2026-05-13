@@ -1,9 +1,9 @@
 import React, { createContext, useContext } from 'react';
-import { Theme } from '../types/curriculum';
+import { Konu } from '../types/curriculum';
 import { curriculum } from '../data/curriculum';
 
 interface CurriculumContextType {
-  themes: Theme[];
+  konular: Konu[];
   loading: boolean;
 }
 
@@ -11,7 +11,7 @@ const CurriculumContext = createContext<CurriculumContextType | undefined>(undef
 
 export function CurriculumProvider({ children }: { children: React.ReactNode }) {
   return (
-    <CurriculumContext.Provider value={{ themes: curriculum as unknown as Theme[], loading: false }}>
+    <CurriculumContext.Provider value={{ konular: curriculum as unknown as Konu[], loading: false }}>
       {children}
     </CurriculumContext.Provider>
   );

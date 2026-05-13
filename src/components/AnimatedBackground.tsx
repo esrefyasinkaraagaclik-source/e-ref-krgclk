@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 export function AnimatedBackground() {
   return (
     <div className="fixed inset-0 z-[-1] overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900">
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+      <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay"></div>
       
       {/* Floating Orbs */}
       <motion.div

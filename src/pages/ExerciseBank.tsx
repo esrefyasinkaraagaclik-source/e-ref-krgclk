@@ -18,6 +18,13 @@ const ExerciseBank = () => {
   const [userAnswers, setUserAnswers] = useState<Record<string, any>>({});
   const [showResults, setShowResults] = useState<Record<string, boolean>>({});
 
+  // Notify AI Assistant about the selected theme
+  React.useEffect(() => {
+    localStorage.setItem('active-exercise-theme', selectedThemeId);
+    const event = new CustomEvent('exercise-theme-changed', { detail: { themeId: selectedThemeId } });
+    window.dispatchEvent(event);
+  }, [selectedThemeId]);
+
   const currentExercises = exercises[selectedThemeId] || [];
 
   const handleAnswerChange = (questionId: string, answer: any) => {

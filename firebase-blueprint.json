@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "Kullanıcı Profili",
+      "description": "Kullanıcı bilgilerini ve ilerlemesini içeren ana model.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Benzersiz kullanıcı ID" },
+        "displayName": { "type": "string", "description": "Görünen ad" },
+        "email": { "type": "string", "description": "E-posta adresi" },
+        "badges": { "type": "array", "description": "Kazanılan rozetler" },
+        "completedModules": { "type": "array", "description": "Tamamlanan eğitim modülleri" },
+        "totalScore": { "type": "number", "description": "Toplam puan" },
+        "isAdmin": { "type": "boolean", "description": "Yönetici yetkisi" },
+        "isBanned": { "type": "boolean", "description": "Hesap engel durumu" }
+      },
+      "required": ["uid", "displayName", "email"]
+    },
+    "ModuleScore": {
+      "title": "Modül Skoru",
+      "description": "Modül bazlı en yüksek skorları saklayan model.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "moduleId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "score": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "moduleId", "score"]
+    },
+    "Feedback": {
+      "title": "Geri Bildirim",
+      "description": "Kullanıcılardan gelen öneri, hata ve mesajları saklayan model.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "type": { "type": "string", "enum": ["suggestion", "bug", "other"] },
+        "message": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "type", "message"]
+    },
+    "ChatMessage": {
+      "title": "Sohbet Mesajı",
+      "description": "AI asistanı ile olan konuşmaları saklayan model.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Sahip olan kullanıcı" },
+        "role": { "type": "string", "enum": ["user", "model"] },
+        "content": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "role", "content", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Kullanıcı profilleri koleksiyonu."
+    },
+    "/moduleScores/{scoreId}": {
+      "schema": "ModuleScore",
+      "description": "Kullanıcıların modüllerdeki en iyi skorları."
+    },
+    "/feedbacks/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "Kullanıcı geri bildirimleri koleksiyonu."
+    },
+    "/chats/{chatMessageId}": {
+      "schema": "ChatMessage",
+      "description": "AI sohbet geçmişi mesajları."
+    }
+  }
+}

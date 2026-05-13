@@ -11,13 +11,13 @@ export interface ProgressMapProps {
 
 export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
   const { userProfile } = useAuth();
-  const { themes: curriculum, loading } = useCurriculum();
+  const { konular: curriculum, loading } = useCurriculum();
   const navigate = useNavigate();
   const location = useLocation();
 
   // Filter curriculum based on mode
-  const filteredCurriculum = curriculum.map(theme => {
-    const filteredModules = theme.modules.filter(mod => {
+  const filteredCurriculum = curriculum.map(konu => {
+    const filteredModules = konu.modules.filter(mod => {
       if (mode === 'theory') {
         return mod.theory || mod.type === 'lesson';
       }
@@ -26,8 +26,8 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
       }
       return true;
     });
-    return { ...theme, modules: filteredModules };
-  }).filter(theme => theme.modules.length > 0);
+    return { ...konu, modules: filteredModules };
+  }).filter(konu => konu.modules.length > 0);
 
   useEffect(() => {
     if (location.state) {
@@ -44,9 +44,9 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
             }, 2000);
           }
         }, 100);
-      } else if (location.state.scrollToTheme) {
+      } else if (location.state.scrollToKonu) {
         setTimeout(() => {
-          const element = document.getElementById(location.state.scrollToTheme);
+          const element = document.getElementById(location.state.scrollToKonu);
           if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
@@ -74,17 +74,35 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
       </div>
 
       <div className="space-y-12">
-        {filteredCurriculum.map((theme, themeIndex) => (
-          <div key={theme.id} id={theme.id} className="relative scroll-mt-24">
-            {/* Theme Header */}
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-white mb-1">{theme.title}</h2>
-              <p className="text-slate-400">{theme.description}</p>
+        {filteredCurriculum.map((konu, konuIndex) => (
+          <div key={konu.id} id={konu.id} className="relative scroll-mt-24">
+            {/* Konu Header */}
+            <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-1">{konu.title}</h2>
+                <p className="text-slate-400">{konu.description}</p>
+              </div>
+              <div className="w-full md:w-64">
+                <div className="flex justify-between mb-1.5 px-1">
+                  <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">Ünite İlerlemesi</span>
+                  <span className="text-xs font-bold text-white">
+                    %{Math.round((konu.modules.filter(m => userProfile.completedModules?.includes(m.id)).length / konu.modules.length) * 100)}
+                  </span>
+                </div>
+                <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden border border-white/5">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: `${Math.round((konu.modules.filter(m => userProfile.completedModules?.includes(m.id)).length / konu.modules.length) * 100)}%` }}
+                    transition={{ duration: 1.2, ease: "easeOut", delay: konuIndex * 0.1 }}
+                    className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full shadow-[0_0_10px_rgba(6,182,212,0.3)]"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Modules Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-              {theme.modules.map((mod, modIndex) => {
+              {konu.modules.map((mod, modIndex) => {
                 const isCompleted = userProfile.completedModules?.includes(mod.id);
                 
                 // Serbest dolaşım: Tüm kilitler kaldırıldı
@@ -96,7 +114,7 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
                     id={mod.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: (themeIndex * 0.2) + (modIndex * 0.1) }}
+                    transition={{ delay: (konuIndex * 0.2) + (modIndex * 0.1) }}
                     className={`glass-card p-6 border-2 transition-all ${
                       isCompleted ? 'border-emerald-500/50 bg-emerald-500/10 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:-translate-y-1 cursor-pointer' :
                       isUnlocked ? 'border-cyan-500/50 bg-cyan-500/10 hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:-translate-y-1 cursor-pointer' :
@@ -143,7 +161,7 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
             </div>
             
             {/* Connecting Line (Visual only, hidden on mobile) */}
-            {themeIndex < filteredCurriculum.length - 1 && (
+            {konuIndex < filteredCurriculum.length - 1 && (
               <div className="hidden md:block absolute left-1/2 -bottom-8 w-0.5 h-8 bg-gradient-to-b from-cyan-500/30 to-transparent"></div>
             )}
           </div>

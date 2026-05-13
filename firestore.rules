@@ -2,51 +2,54 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Default deny
+    // Safety: Deny by default
     match /{document=**} {
       allow read, write: if false;
     }
 
-    // Global helpers
+    // Helpers
     function isSignedIn() {
       return request.auth != null;
     }
-
-    function isOwner(userId) {
-      return isSignedIn() && request.auth.uid == userId;
-    }
-
+    
     function isAdmin() {
-      return isSignedIn() 
-        && request.auth.token.email == 'esrefyasinkaraagaclik@gmail.com';
-    }
-
-    // User Profiles
-    match /users/{userId} {
-      // List operation (needed for Leaderboard and Admin Panel)
-      // We allow signed in users to list for the leaderboard
-      allow list: if isSignedIn();
-      
-      // Get operation (public profile view)
-      allow get: if isSignedIn();
-      
-      // Create profile
-      allow create: if isOwner(userId);
-      
-      // Update profile
-      allow update: if (
-        isAdmin() || // Admins can ban users
-        (isOwner(userId) && 
-         !request.resource.data.diff(resource.data).affectedKeys().hasAny(['isAdmin', 'isBanned', 'uid', 'email']))
+      return isSignedIn() && (
+        request.auth.token.email == 'esrefyasinkaraagaclik@gmail.com' ||
+        request.auth.token.email == 'mustafakaanresmi@gmail.com' ||
+        request.auth.token.email == 'mehmetakiferden@gmail.com'
       );
     }
-    
-    // Scores and Progress
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // 1. Users
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && userId == request.auth.uid;
+      allow update: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+    }
+
+    // 2. Scores
     match /moduleScores/{scoreId} {
       allow read: if true;
-      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
-      allow update: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && incoming().userId == request.auth.uid;
       allow delete: if isAdmin();
+    }
+
+    // 3. Feedbacks
+    match /feedbacks/{feedbackId} {
+      allow create: if true; // Public feedback submissions
+      allow read: if isAdmin();
+    }
+
+    // 4. AI Chat History
+    match /chats/{chatId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && incoming().userId == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
     }
   }
 }

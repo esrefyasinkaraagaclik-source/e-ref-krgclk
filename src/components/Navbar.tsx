@@ -14,7 +14,8 @@ import {
   Beaker,
   FileText,
   PlayCircle,
-  HelpCircle
+  HelpCircle,
+  Trophy
 } from 'lucide-react';
 import { curriculum } from '../data/curriculum';
 import { useState, useRef, useEffect } from 'react';
@@ -25,8 +26,8 @@ export function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isThemeOpen, setIsThemeOpen] = useState(false);
-  const themeRef = useRef<HTMLDivElement>(null);
+  const [isKonuOpen, setIsKonuOpen] = useState(false);
+  const konuRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = async () => {
     await logout();
@@ -40,19 +41,21 @@ export function Navbar() {
     { path: '/lab', icon: Beaker, label: 'Sanal Laboratuvar' },
     { path: '/exercises', icon: HelpCircle, label: 'Soru Bankası' },
     { path: '/poster', icon: FileText, label: 'Proje Posteri' },
+    { path: '/profile', icon: User, label: 'Profil' },
+    { path: '/leaderboard', icon: Trophy, label: 'Liderlik Tablosu' },
   ];
 
-  const handleThemeClick = (themeId: string) => {
-    navigate('/lectures', { state: { scrollToTheme: themeId } });
-    setIsThemeOpen(false);
+  const handleKonuClick = (konuId: string) => {
+    navigate('/lectures', { state: { scrollToKonu: konuId } });
+    setIsKonuOpen(false);
     setIsMenuOpen(false);
   };
 
   // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (themeRef.current && !themeRef.current.contains(event.target as Node)) {
-        setIsThemeOpen(false);
+      if (konuRef.current && !konuRef.current.contains(event.target as Node)) {
+        setIsKonuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -64,11 +67,14 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
         {/* Left: Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.3)] overflow-hidden bg-slate-900 shrink-0 group-hover:scale-110 transition-transform">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)] overflow-hidden bg-slate-900 shrink-0 group-hover:scale-110 transition-transform">
             <img 
-              src="https://i.hizliresim.com/27jdo2j.png" 
+              src="/logo.png" 
               alt="ReaksiyonLab Logo" 
               className="w-full h-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src = "https://i.hizliresim.com/27jdo2j.png"; // Fallback to current logo
+              }}
               referrerPolicy="no-referrer"
             />
           </div>
@@ -109,23 +115,23 @@ export function Navbar() {
             </Link>
           )}
 
-          {/* Themes Dropdown */}
-          <div className="relative" ref={themeRef}>
+          {/* Subjects Dropdown */}
+          <div className="relative" ref={konuRef}>
             <button
-              onClick={() => setIsThemeOpen(!isThemeOpen)}
+              onClick={() => setIsKonuOpen(!isKonuOpen)}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
-                isThemeOpen || location.pathname.startsWith('/module')
+                isKonuOpen || location.pathname.startsWith('/module')
                   ? 'bg-white/5 text-cyan-300'
                   : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
               }`}
             >
               <BookOpen className="w-4 h-4" />
               <span className="font-medium text-sm">Konular</span>
-              <ChevronDown className={`w-3 h-3 transition-transform ${isThemeOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-3 h-3 transition-transform ${isKonuOpen ? 'rotate-180' : ''}`} />
             </button>
 
             <AnimatePresence>
-              {isThemeOpen && (
+              {isKonuOpen && (
                 <motion.div
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -133,13 +139,13 @@ export function Navbar() {
                   className="absolute top-full left-0 mt-2 w-64 glass-card p-2 shadow-2xl border border-white/10 overflow-hidden"
                 >
                   <div className="max-h-[60vh] overflow-y-auto custom-scrollbar">
-                    {curriculum.map((theme) => {
-                      const titleMatch = theme.title.match(/^\d+\.\sTEMA:\s*(.+)$/i);
-                      const displayName = titleMatch ? titleMatch[1] : theme.title;
+                    {curriculum.map((konu) => {
+                      const titleMatch = konu.title.match(/^\d+\.\sKONU:\s*(.+)$/i);
+                      const displayName = titleMatch ? titleMatch[1] : konu.title;
                       return (
                         <button
-                          key={theme.id}
-                          onClick={() => handleThemeClick(theme.id)}
+                          key={konu.id}
+                          onClick={() => handleKonuClick(konu.id)}
                           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-slate-400 hover:bg-cyan-500/10 hover:text-cyan-300 text-left group"
                         >
                           <BookOpen className="w-4 h-4 shrink-0 group-hover:text-cyan-400" />
@@ -242,13 +248,13 @@ export function Navbar() {
               <div className="pt-2 border-t border-white/5 mt-2">
                 <div className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Konular</div>
                 <div className="max-h-64 overflow-y-auto custom-scrollbar py-2">
-                    {curriculum.map((theme) => {
-                      const titleMatch = theme.title.match(/^\d+\.\sTEMA:\s*(.+)$/i);
-                      const displayName = titleMatch ? titleMatch[1] : theme.title;
+                    {curriculum.map((konu) => {
+                      const titleMatch = konu.title.match(/^\d+\.\sKONU:\s*(.+)$/i);
+                      const displayName = titleMatch ? titleMatch[1] : konu.title;
                       return (
                         <button
-                          key={theme.id}
-                          onClick={() => handleThemeClick(theme.id)}
+                          key={konu.id}
+                          onClick={() => handleKonuClick(konu.id)}
                           className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-slate-400 hover:text-cyan-300 text-left"
                         >
                           <BookOpen className="w-4 h-4" />

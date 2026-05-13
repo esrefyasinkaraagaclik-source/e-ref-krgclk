@@ -1,10 +1,10 @@
 {
-  "apiKey": "AIzaSyBLTC1QtAius3Rc3Btj-VRKU-oFUP0UUHE",
-  "authDomain": "reactionlab-4006.firebaseapp.com",
-  "projectId": "reactionlab-4006",
-  "storageBucket": "reactionlab-4006.firebasestorage.app",
-  "messagingSenderId": "1010629376290",
-  "appId": "1:1010629376290:web:6754b70671820f15694d7b",
-  "measurementId": "G-L8HS4KYBYL",
-  "firestoreDatabaseId": "(default)"
+  "projectId": "ai-studio-applet-webapp-10b84",
+  "appId": "1:837980690216:web:00311e684a442ed4bc621d",
+  "apiKey": "AIzaSyCA6Eq6GMyFgjzDv9BJfApHyyfUmrnd5Ew",
+  "authDomain": "ai-studio-applet-webapp-10b84.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-0298c036-0ff6-4133-b8cc-4d65f2fa07cb",
+  "storageBucket": "ai-studio-applet-webapp-10b84.firebasestorage.app",
+  "messagingSenderId": "837980690216",
+  "measurementId": ""
 }

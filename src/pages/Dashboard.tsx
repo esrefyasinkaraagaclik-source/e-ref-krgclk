@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 export function Dashboard() {
   const { userProfile } = useAuth();
-  const { themes: curriculum, loading } = useCurriculum();
+  const { konular: curriculum, loading } = useCurriculum();
   const navigate = useNavigate();
 
   if (!userProfile || loading) return <div className="text-slate-400 p-8">Yükleniyor...</div>;
 
-  const flattenedModules = curriculum.flatMap(theme => theme.modules);
+  const flattenedModules = curriculum.flatMap(konu => konu.modules);
   let nextModule = null;
 
   if (userProfile.completedModules && userProfile.completedModules.length > 0) {
@@ -30,7 +30,7 @@ export function Dashboard() {
   }
 
   // Calculate overall progress
-  const totalModules = curriculum.reduce((acc, theme) => acc + theme.modules.length, 0);
+  const totalModules = curriculum.reduce((acc, konu) => acc + konu.modules.length, 0);
   const completedCount = userProfile.completedModules?.length || 0;
   const overallProgress = Math.round((completedCount / totalModules) * 100) || 0;
 
@@ -82,17 +82,27 @@ export function Dashboard() {
                       fill="none"
                       d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                     />
-                    <path
+                    <motion.path
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: overallProgress / 100 }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
                       className="text-cyan-500"
                       strokeWidth="3"
-                      strokeDasharray={`${overallProgress}, 100`}
                       strokeLinecap="round"
                       stroke="currentColor"
                       fill="none"
                       d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                     />
                   </svg>
-                  <div className="absolute text-lg font-bold text-white">{overallProgress}%</div>
+                  <div className="absolute text-lg font-bold text-white">
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.5 }}
+                    >
+                      {overallProgress}%
+                    </motion.span>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -120,14 +130,14 @@ export function Dashboard() {
             </div>
             
             <div className="space-y-4">
-              {curriculum.map((theme, i) => {
-                const themeModules = theme.modules.length;
-                const completedInTheme = theme.modules.filter(m => userProfile.completedModules?.includes(m.id)).length;
-                const themeProgress = Math.round((completedInTheme / themeModules) * 100);
-                const status = themeProgress === 100 ? 'completed' : (themeProgress > 0 ? 'in-progress' : 'locked');
+              {curriculum.map((konu, i) => {
+                const konuModules = konu.modules.length;
+                const completedInKonu = konu.modules.filter(m => userProfile.completedModules?.includes(m.id)).length;
+                const konuProgress = Math.round((completedInKonu / konuModules) * 100);
+                const status = konuProgress === 100 ? 'completed' : (konuProgress > 0 ? 'in-progress' : 'locked');
 
                 return (
-                  <div key={i} className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer" onClick={() => navigate('/lectures', { state: { scrollToTheme: theme.id } })}>
+                  <div key={i} className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer" onClick={() => navigate('/lectures', { state: { scrollToKonu: konu.id } })}>
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
                       status === 'completed' ? 'bg-emerald-500/20 text-emerald-400' :
                       status === 'in-progress' ? 'bg-cyan-500/20 text-cyan-400' :
@@ -140,13 +150,15 @@ export function Dashboard() {
                     
                     <div className="flex-1">
                       <div className="flex justify-between mb-1">
-                        <span className={`font-medium ${status === 'locked' ? 'text-slate-500' : 'text-slate-200'}`}>{theme.title}</span>
-                        <span className="text-xs text-slate-400">%{themeProgress}</span>
+                        <span className={`font-medium ${status === 'locked' ? 'text-slate-500' : 'text-slate-200'}`}>{konu.title}</span>
+                        <span className="text-xs text-slate-400">%{konuProgress}</span>
                       </div>
                       <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                        <div 
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          animate={{ width: `${konuProgress}%` }}
+                          transition={{ duration: 1, delay: 0.2 + (i * 0.1) }}
                           className={`h-full rounded-full ${status === 'completed' ? 'bg-emerald-500' : 'bg-cyan-500'}`}
-                          style={{ width: `${themeProgress}%` }}
                         />
                       </div>
                     </div>

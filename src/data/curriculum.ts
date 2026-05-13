@@ -1,4 +1,4 @@
-import { Theme, Module, MoleculeData } from "../types/curriculum";
+import { Konu, Module, MoleculeData } from "../types/curriculum";
 import { molecules } from "./molecules";
 
 const moleculeList = Object.values(molecules);
@@ -23,10 +23,10 @@ const generateMoleculeQuiz = () => {
   });
 };
 
-export const curriculum: Theme[] = [
+export const curriculum: Konu[] = [
   {
-    id: "tema1",
-    title: "1. TEMA: FİZİKSEL VE KİMYASAL DEĞİŞİMLER",
+    id: "konu1",
+    title: "1. KONU: FİZİKSEL VE KİMYASAL DEĞİŞİMLER",
     description: "Maddede meydana gelen fiziksel ve kimyasal değişimler, değişimlerin göstergeleri.",
     order: 1,
     modules: [
@@ -38,7 +38,7 @@ export const curriculum: Theme[] = [
           {
             id: "t1_m1_th1",
             type: "text",
-            text: "**Fiziksel Değişim**\nMaddenin kimlik özelliğinin değişmediği, sadece dış görünüşünde (şekil, fiziksel hâl vb.) meydana gelen değişimlerdir. Değişim sonrası yeni bir madde oluşmaz. Maddenin tanecik yapısı sabit kalır.\n\n**Örnekler:**\n- Buzun erimesi\n- Camın kırılması\n- Kağıdın yırtılması\n- Şekerin suda çözünmesi"
+            text: "**Fiziksel Değişim**\nMaddenin kimlik özelliğinin değişmediği, sadece dış görünüşünde (şekil, fiziksel hâl vb.) meydana gelen değişimlerdir. Değişim sonrası yeni bir madde oluşmaz. Maddenin tanecik yapısı sabit kalır.\n\n**Örnekler:**\n- Buzun erimesi\n- Camın kırılması\n- Kâğıdın yırtılması\n- Şekerin suda çözünmesi"
           },
           {
             id: "t1_m1_th2",
@@ -127,8 +127,8 @@ export const curriculum: Theme[] = [
     ]
   },
   {
-    id: "tema2",
-    title: "2. TEMA: ELEMENT BİLEŞİK KARIŞIM",
+    id: "konu2",
+    title: "2. KONU: ELEMENT BİLEŞİK KARIŞIM",
     description: "Tanecikler dünyasında element, bileşik ve karışımların incelenmesi.",
     order: 2,
     modules: [
@@ -203,8 +203,8 @@ export const curriculum: Theme[] = [
     ]
   },
   {
-    id: "tema3",
-    title: "3. TEMA: KİMYASAL TEPKİMELER",
+    id: "konu3",
+    title: "3. KONU: KİMYASAL TEPKİMELER",
     description: "Kimyasal tepkimelerin modellenmesi, denkleştirilmesi ve tepkime türleri.",
     order: 3,
     modules: [
@@ -216,12 +216,12 @@ export const curriculum: Theme[] = [
           {
             id: "t3_m1_th1",
             type: "text",
-            text: "**Kimyasal Tepkime Türleri**\nKimyasal tepkimeler, maddelerin birbirleriyle olan etkileşimlerine göre farklı sınıflara ayrılırlar.\n\n**1. Yanma Tepkimeleri:**\nBir maddenin O₂ gazı ile tepkimeye girmesidir. Genellikle dışarıya ısı ve ışık verirler.\n\n**2. Sentez (Oluşum) Tepkimeleri:**\nİki veya daha fazla maddenin birleşerek tek bir ürün oluşturmasıdır (A + B → AB)."
+            text: "**Kimyasal Tepkime Türleri**\nKimyasal tepkimeler, maddelerin birbirleriyle olan etkileşimlerine göre farklı sınıflara ayrılırlar.\n\n**1. Yanma Tepkimeleri:**\nBir maddenin O₂ gazı ile tepkimeye girmesidir. Genellikle dışarıya ısı ve ışık verirler."
           },
           {
             id: "t3_m1_th2",
             type: "text",
-            text: "**3. Analiz (Ayrışma) Tepkimeleri:**\nBir bileşiğin daha basit maddelere ayrılmasıdır (AB → A + B).\n\n**4. Asit-Baz Tepkimeleri:**\nBir asit ile bir bazın birleşerek tuz ve genellikle su oluşturmasıdır."
+            text: "**2. Asit-Baz Tepkimeleri:**\nBir asit ile bir bazın birleşerek tuz ve genellikle su oluşturmasıdır.\n\n**3. Çözünme-Çökelme Tepkimeleri:**\nİki tane sulu çözeltinin karışarak katı bir madde (çökelek) oluşturmasıdır.\n\n**4. İndirgenme-Yükseltgenme (Redoks) Tepkimeleri:**\nElektron alışverişi ile gerçekleşen tepkimelerdir. Bir madde elektron verirken (yükseltgenme), diğeri elektron alır (indirgenme)."
           }
         ],
         type: "reaction-classification",
@@ -232,9 +232,9 @@ export const curriculum: Theme[] = [
             description: "Kimyasal denklemleri inceleyin ve sınıflandırın.",
             options: [
               { id: "combustion", label: "Yanma", colorClass: "hover:border-red-500 hover:text-red-400" },
-              { id: "synthesis", label: "Sentez", colorClass: "hover:border-blue-500 hover:text-blue-400" },
-              { id: "decomposition", label: "Analiz", colorClass: "hover:border-purple-500 hover:text-purple-400" },
-              { id: "acidbase", label: "Asit-Baz", colorClass: "hover:border-emerald-500 hover:text-emerald-400" }
+              { id: "acidbase", label: "Asit-Baz", colorClass: "hover:border-emerald-500 hover:text-emerald-400" },
+              { id: "precipitation", label: "Çözünme-Çökelme", colorClass: "hover:border-amber-500 hover:text-amber-400" },
+              { id: "redox", label: "Redoks", colorClass: "hover:border-indigo-500 hover:text-indigo-400" }
             ],
             items: [
               {
@@ -246,28 +246,28 @@ export const curriculum: Theme[] = [
                 explanation: "O₂ gazı girenler tarafında yer aldığı için bu bir yanma tepkimesidir."
               },
               {
-                id: "re2",
-                equation: "N₂(g) + 3H₂(g) → 2NH₃(g)",
-                reactants: [{ formula: "N₂", state: "g" }, { formula: "H₂", state: "g" }],
-                products: [{ formula: "NH₃", state: "g" }],
-                correctType: "synthesis",
-                explanation: "İki veya daha fazla basit maddenin birleşerek daha karmaşık tek bir madde oluşturduğu sentez (birleşme) tepkimesidir."
-              },
-              {
-                id: "re3",
-                equation: "CaCO₃(k) → \nCaO(k) + CO₂(g)",
-                reactants: [{ formula: "CaCO₃", state: "k" }],
-                products: [{ formula: "CaO", state: "k" }, { formula: "CO₂", state: "g" }],
-                correctType: "decomposition",
-                explanation: "Karmaşık bir bileşiğin (CaCO₃) ısı yardımıyla daha basit bileşiklere (CaO ve CO₂) ayrıştığı analiz (ayrışma) tepkimesidir."
-              },
-              {
                 id: "re4",
                 equation: "HCl(suda) + NaOH(suda) → \nNaCl(suda) + H₂O(s)",
                 reactants: [{ formula: "HCl", state: "suda", color: "text-red-400" }, { formula: "NaOH", state: "suda", color: "text-blue-400" }],
                 products: [{ formula: "NaCl", state: "suda" }, { formula: "H₂O", state: "s", color: "text-cyan-400" }],
                 correctType: "acidbase",
                 explanation: "Bir asit (HCl) ile bir bazın (NaOH) tepkimeye girerek tuz ve su oluşturduğu asit-baz (nötralleşme) tepkimesidir."
+              },
+              {
+                id: "re5",
+                equation: "AgNO₃(suda) + NaCl(suda) → \nAgCl(k) + NaNO₃(suda)",
+                reactants: [{ formula: "AgNO₃", state: "suda" }, { formula: "NaCl", state: "suda" }],
+                products: [{ formula: "AgCl", state: "k", color: "text-orange-400" }, { formula: "NaNO₃", state: "suda" }],
+                correctType: "precipitation",
+                explanation: "İki sulu çözeltinin karışması sonucu suda çözünmeyen katı bir madde (AgCl) oluştuğu çözünme-çökelme tepkimesidir."
+              },
+              {
+                id: "re6",
+                equation: "Zn(k) + Cu²⁺(suda) → \nZn²⁺(suda) + Cu(k)",
+                reactants: [{ formula: "Zn", state: "k" }, { formula: "Cu²⁺", state: "suda" }],
+                products: [{ formula: "Zn²⁺", state: "suda" }, { formula: "Cu", state: "k" }],
+                correctType: "redox",
+                explanation: "Zn atomu elektron vererek yükseltgenirken, Cu²⁺ iyonu elektron alarak indirgenir. Bu bir redoks tepkimesidir."
               }
             ]
           }
@@ -281,7 +281,7 @@ export const curriculum: Theme[] = [
         reactions: [
           {
             id: "r1",
-            title: "Suyun Sentezi",
+            title: "Suyun Oluşumu",
             description: "Hidrojen ve oksijen gazlarından su oluşumu",
             reactants: [
               { molecule: molecules.h2, correctCoefficient: 2 },
@@ -293,7 +293,7 @@ export const curriculum: Theme[] = [
           },
           {
             id: "r2",
-            title: "Amonyak Sentezi",
+            title: "Amonyak Oluşumu",
             description: "Azot ve hidrojen gazlarından amonyak oluşumu",
             reactants: [
               { molecule: molecules.n2, correctCoefficient: 1 },
@@ -321,8 +321,8 @@ export const curriculum: Theme[] = [
     ]
   },
   {
-    id: "tema4",
-    title: "4. TEMA: MOL KAVRAMI",
+    id: "konu4",
+    title: "4. KONU: MOL KAVRAMI",
     description: "Maddenin miktarını ifade etme: Mol, kütle, tanecik sayısı hacim.",
     order: 4,
     modules: [
@@ -381,8 +381,8 @@ export const curriculum: Theme[] = [
     ]
   },
   {
-    id: "tema5",
-    title: "5. TEMA: GAZLAR",
+    id: "konu5",
+    title: "5. KONU: GAZLAR",
     description: "Gazların genel özellikleri ve davranışları.",
     order: 5,
     modules: [
@@ -390,6 +390,13 @@ export const curriculum: Theme[] = [
         id: "t5_m1",
         title: "Gazların Genel Özellikleri",
         description: "Gazların temel özelliklerini kavram haritasında keşfedin.",
+        theory: [
+          {
+            id: "t5_m1_th1",
+            type: "text",
+            text: "**Gazların Genel Özellikleri**\n\n1. Gaz tanecikleri arasındaki boşluklar çok fazladır.\n2. Gazlar bulundukları kabın her noktasına basınç uygularlar.\n3. Gaz tanecikleri sürekli ve gelişigüzel hareket ederler (Brown hareketi).\n4. Gazlar birbiriyle her oranda karışarak homojen karışımlar oluştururlar.\n5. Gazlar sıkıştırılabilir ve ısıtıldıklarında genleşirler."
+          }
+        ],
         type: "mindmap",
         mindmapNodes: [
           {
@@ -447,7 +454,14 @@ export const curriculum: Theme[] = [
       {
         id: "t5_m2",
         title: "Gaz Kanunları Dedektifi",
-        description: "Gaz kanunlarını ait oldukları formüllerle ve sabit tutulan değerlerle eşleştirin.",
+        description: "Gaz kanunlarını; formülleri ve sabit tutulan değerleri ile eşleştirin.",
+        theory: [
+          {
+            id: "t5_m2_th1",
+            type: "text",
+            text: "**İdeal Gaz Yasası**\n\nGazların basınç (P), hacim (V), mol sayısı (n) ve mutlak sıcaklık (T) arasındaki ilişkiyi açıklar.\n\n**PV = nRT**\n\n- P: Basınç (atm)\n- V: Hacim (L)\n- n: Mol sayısı\n- R: İdeal gaz sabiti (0,082 veya 22,4/273)\n- T: Mutlak sıcaklık (Kelvin)"
+          }
+        ],
         type: "matching",
         pairs: [
           { left: "Boyle Kanunu\n(Sabit T ve n)", right: "P₁·V₁ = P₂·V₂", rightType: "text" },
@@ -461,6 +475,13 @@ export const curriculum: Theme[] = [
         id: "t5_m3",
         title: "Basınç ve Hacim Dönüşümleri",
         description: "Gaz hesaplamalarında kullanılan temel ölçü birimlerini birbirleri cinsinden eşleştirin.",
+        theory: [
+          {
+            id: "t5_m3_th1",
+            type: "text",
+            text: "**Gazlarda Birim Dönüşümleri**\n\n- **Basınç:** 1 atm = 76 cmHg = 760 mmHg = 760 Torr\n- **Sıcaklık:** T(K) = t(°C) + 273\n- **Hacim:** 1 L = 1000 mL = 1000 cm³"
+          }
+        ],
         type: "matching",
         pairs: [
           { left: "1 Atmosfer (atm) basınç", right: "76 cmHg (760 mmHg)", rightType: "text" },
@@ -474,6 +495,13 @@ export const curriculum: Theme[] = [
         id: "t5_m4",
         title: "Kinetik Teori Kavramları",
         description: "Gazların özelliklerini ve davranışlarını açıklayan Kinetik Teori kavramlarını eşleştirin.",
+        theory: [
+          {
+            id: "t5_m4_th1",
+            type: "text",
+            text: "**Kinetik Teori**\n\n1. Gaz tanecikleri öz hacimleri, bulundukları kabın hacmi yanında ihmal edilebilecek kadar küçüktür.\n2. Gaz tanecikleri arasındaki itme ve çekme kuvvetleri yok kabul edilir.\n3. Gaz taneciklerinin kinetik enerjileri mutlak sıcaklık ile doğru orantılıdır.\n4. Aynı sıcaklıktaki tüm gazların ortalama kinetik enerjileri eşittir."
+          }
+        ],
         type: "matching",
         pairs: [
           { left: "Gazın başka bir gaz içinde yayılması", right: "Difüzyon", rightType: "text" },
@@ -487,6 +515,13 @@ export const curriculum: Theme[] = [
         id: "t5_m5",
         title: "Atmosferdeki Gazlar ve Etkileri",
         description: "Atmosferde bulunan gazları ve dünya üzerinde yarattıkları çevresel etkileri eşleştirin.",
+        theory: [
+          {
+            id: "t5_m5_th1",
+            type: "text",
+            text: "**Atmosfer ve Çevre**\n\nAtmosferdeki gazlar dünyamız için hayati öneme sahiptir ancak insan faaliyetleri sonucu bazı gazların oranının değişmesi çevresel sorunlara yol açar.\n\n- **Sera Etkisi:** CO₂, CH₄ gibi gazların ısıyı tutması sonucu küresel ısınma oluşur.\n- **Ozon Tabakası:** O₃ gazı güneşten gelen zararlı UV ışınlarını süzer.\n- **Asit Yağmurları:** SO₂ ve NO₂ gazlarının su buharıyla birleşerek asit oluşturmasıdır."
+          }
+        ],
         type: "matching",
         pairs: [
           { left: "Karbondioksit (CO₂) gazının atmosferde aşırı birikmesi", right: "Sera Etkisi (Küresel Isınma)", rightType: "text" },
@@ -500,6 +535,13 @@ export const curriculum: Theme[] = [
         id: "t5_m6",
         title: "Gaz Yasaları ve Kanunları",
         description: "Gazların hacim, sıcaklık, basınç ve mol sayısıyla olan ilişkilerini (yasaları) eşleştirin.",
+        theory: [
+          {
+            id: "t5_m6_th1",
+            type: "text",
+            text: "**Gaz Yasaları Özeti**\n\n- **Boyle:** P₁V₁ = P₂V₂ (Sıcaklık ve mol sabit)\n- **Charles:** V₁/T₁ = V₂/T₂ (Basınç ve mol sabit)\n- **Gay-Lussac:** P₁/T₁ = P₂/T₂ (Hacim ve mol sabit)\n- **Avogadro:** V₁/n₁ = V₂/n₂ (Basınç ve sıcaklık sabit)"
+          }
+        ],
         type: "matching",
         pairs: [
           { left: "Basınç ve Hacim Ters Orantılıdır (P-V)", right: "Boyle Yasası", rightType: "text" },

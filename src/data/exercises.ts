@@ -14,7 +14,7 @@ export interface ExerciseQuestion {
 }
 
 export const exercises: Record<string, ExerciseQuestion[]> = {
-  "tema1": [
+  "konu1": [
     {
       id: "t1_q1",
       type: "multiple-choice",
@@ -83,12 +83,12 @@ export const exercises: Record<string, ExerciseQuestion[]> = {
       points: 10
     }
   ],
-  "tema2": [
+  "konu2": [
     {
       id: "t2_q1",
       type: "multiple-choice",
       topic: "Element ve Bileşikler",
-      question: "Aşağıdakilerinden hangisi bir bileşiktir?",
+      question: "Aşağıdakilerden hangisi bir bileşiktir?",
       options: ["O2", "He", "H2O", "Fe"],
       answer: 2,
       explanation: "H2O (Su), farklı cins atomların belirli oranda birleşmesiyle oluşmuş bir bileşiktir.",
@@ -152,17 +152,7 @@ export const exercises: Record<string, ExerciseQuestion[]> = {
       points: 10
     }
   ],
-  "tema3": [
-    {
-      id: "t3_q1",
-      type: "multiple-choice",
-      topic: "Tepkime Türleri",
-      question: "CaCO3 → CaO + CO2 tepkimesinin türü nedir?",
-      options: ["Yanma", "Sentez", "Analiz", "Yardışma"],
-      answer: 2,
-      explanation: "Büyük bir molekülün daha küçük parçalara ayrışması analiz (ayrışma) tepkimesidir.",
-      points: 10
-    },
+  "konu3": [
     {
       id: "t3_q2",
       type: "multiple-choice",
@@ -170,7 +160,7 @@ export const exercises: Record<string, ExerciseQuestion[]> = {
       question: "CH4 + 2O2 → CO2 + 2H2O tepkimesi için hangisi yanlıştır?",
       options: ["Yanma tepkimesidir", "Atom türü korunmuştur", "Katsayılar toplamı girenlerde 3'tür", "Toplam molekül sayısı korunmuştur"],
       answer: 3,
-      explanation: "Girenlerde 1+2=3 molekül, ürünlerde 1+2=3 molekül vardır. Molekül sayısı korunmak zorunda değildir ama bu tepkimede korunmuştur. Aslında yanlış olanı bulmak gerekirse: Katsayılar toplamı girenlerde 3'tür doğrudur. Pşşt! Soru tipi hatalı olabilir, molekül sayısı her zaman korunmaz.",
+      explanation: "Girenlerde 1+2=3 molekül, ürünlerde 1+2=3 molekül vardır. Molekül sayısı her zaman korunmayabilir, ancak bu tepkimede korunmuştur.",
       points: 15
     },
     {
@@ -187,7 +177,7 @@ export const exercises: Record<string, ExerciseQuestion[]> = {
       type: "multiple-choice",
       topic: "Tepkime Türleri",
       question: "Asit + Baz → Tuz + Su tepkimelerine ne denir?",
-      options: ["Yanma", "Nötralleşme", "Çökelme", "Sentez"],
+      options: ["Yanma", "Nötralleşme", "Çözünme-Çökelme", "Redoks"],
       answer: 1,
       explanation: "Asit ve bazın tepkimesi sonucu tuz ve su oluşuyorsa buna nötralleşme denir.",
       points: 10
@@ -200,9 +190,29 @@ export const exercises: Record<string, ExerciseQuestion[]> = {
       answer: "Lavoisier",
       explanation: "Modern kimyanın babası olarak kabul edilen Antoine Lavoisier tarafından bulunmuştur.",
       points: 10
+    },
+    {
+      id: "t3_q6",
+      type: "multiple-choice",
+      topic: "Tepkime Türleri",
+      question: "Pb(NO3)2(suda) + 2KI(suda) -> PbI2(k) + 2KNO3(suda) tepkimesinin türü nedir?",
+      options: ["Yanma", "Asit-Baz", "Çözünme-Çökelme", "Nötralleşme"],
+      answer: 2,
+      explanation: "İki sulu çözeltiden katı bir çökelek (PbI2) oluştuğu için çözünme-çökelme tepkimesidir.",
+      points: 20
+    },
+    {
+      id: "t3_q7",
+      type: "multiple-choice",
+      topic: "Tepkime Türleri",
+      question: "Elektron alışverişi ile gerçekleşen tepkimelere ne ad verilir?",
+      options: ["Asit-Baz", "Redoks", "Nötralleşme", "Çözünme"],
+      answer: 1,
+      explanation: "Elektron alışverişinin olduğu (indirgenme ve yükseltgenme) tepkimelere Redoks tepkimeleri denir.",
+      points: 10
     }
   ],
-  "tema4": [
+  "konu4": [
     {
       id: "t4_q1",
       type: "multiple-choice",
@@ -229,7 +239,7 @@ export const exercises: Record<string, ExerciseQuestion[]> = {
       topic: "Hacim-Mol",
       question: "NKA'da 22.4 litre hacim kaplayan her gaz 1 moldür.",
       answer: true,
-      explanation: "Normal Koşullar Altında (0C, 1 atm) 1 mol ideal gaz 22.4 L hacim kaplar.",
+      explanation: "Normal Koşullar Altında (0 °C, 1 atm) 1 mol ideal gaz 22.4 L hacim kaplar.",
       points: 10
     },
     {
@@ -243,7 +253,7 @@ export const exercises: Record<string, ExerciseQuestion[]> = {
       points: 15
     }
   ],
-  "tema5": [
+  "konu5": [
     {
       id: "t5_q1",
       type: "multiple-choice",
@@ -272,21 +282,7 @@ export const exercises: Record<string, ExerciseQuestion[]> = {
       answer: 2,
       explanation: "K = C + 273. 27 + 273 = 300 K.",
       points: 10
-    }
-  ],
-  "matching_section": [
-    {
-      id: "m1_q1",
-      type: "matching",
-      topic: "Semboller ve Adlar",
-      question: "Aşağıdaki element sembollerini adlarıyla eşleştiriniz.",
-      options: ["Na", "Fe", "Cu", "Ag"],
-      answer: "Sodyum, Demir, Bakır, Gümüş",
-      explanation: "Na: Sodyum, Fe: Demir, Cu: Bakır, Ag: Gümüş.",
-      points: 20
-    }
-  ],
-  "tema5_extra": [
+    },
     {
       id: "t5_q4",
       type: "matching",
@@ -303,11 +299,23 @@ export const exercises: Record<string, ExerciseQuestion[]> = {
       topic: "Gazlar",
       question: "Gazların birbiri içinde dağılması olayına ......... denir.",
       answer: "difüzyon",
-      explanation: "Gaz taneciklerinin gelişi güzel hareketi sonucu birbiri içinde yayılmasına difüzyon denir.",
+      explanation: "Gaz taneciklerinin gelişigüzel hareketi sonucu birbiri içinde yayılmasına difüzyon denir.",
       points: 10
     }
   ],
-  "tema6": [
+  "matching_section": [
+    {
+      id: "m1_q1",
+      type: "matching",
+      topic: "Semboller ve Adlar",
+      question: "Aşağıdaki element sembollerini adlarıyla eşleştiriniz.",
+      options: ["Na", "Fe", "Cu", "Ag"],
+      answer: "Sodyum, Demir, Bakır, Gümüş",
+      explanation: "Na: Sodyum, Fe: Demir, Cu: Bakır, Ag: Gümüş.",
+      points: 20
+    }
+  ],
+  "konu6": [
     {
       id: "t6_q1",
       type: "multiple-choice",

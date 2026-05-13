@@ -1,0 +1,78 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Phase 3: Primitives
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() { 
+      return isSignedIn() && (
+        request.auth.token.email == 'esrefyasinkaraagaclik@gmail.com' ||
+        request.auth.token.email == 'mehmetakiferden@gmail.com' // From poster update
+      ) && request.auth.token.email_verified == true;
+    }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+
+    // Validation Blueprints
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'displayName', 'email'])
+        && data.uid == request.auth.uid
+        && data.uid is string && data.uid.size() <= 128
+        && data.displayName is string && data.displayName.size() <= 100
+        && data.email is string && data.email.size() <= 150
+        && (!data.keys().contains('isAdmin') || data.isAdmin == false)
+        && (!data.keys().contains('isBanned') || data.isBanned == false);
+    }
+
+    function isValidScore(data) {
+      return data.keys().hasAll(['userId', 'moduleId', 'score'])
+        && data.userId == request.auth.uid
+        && data.userId is string && data.userId.size() <= 128
+        && data.moduleId is string && data.moduleId.size() <= 100
+        && data.score is number && data.score >= 0
+        && (!data.keys().contains('timestamp') || data.timestamp == request.time);
+    }
+
+    function isValidFeedback(data) {
+      return data.keys().hasAll(['name', 'email', 'type', 'message'])
+        && data.name is string && data.name.size() <= 100
+        && data.email is string && data.email.size() <= 150
+        && data.type in ['suggestion', 'bug', 'other']
+        && data.message is string && data.message.size() <= 2000;
+    }
+
+    // 1. User Profiles
+    match /users/{userId} {
+      allow get: if isSignedIn() && (isOwner(userId) || isAdmin());
+      allow list: if isAdmin(); // Regular users shouldn't scrape names without strict filtering
+      allow create: if isSignedIn() && isValidId(userId) && isValidUser(incoming());
+      allow update: if isSignedIn() && isValidId(userId) && (
+        isAdmin() || 
+        (isOwner(userId) && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'badges', 'completedModules', 'totalScore']))
+      );
+      
+      function isOwner(userId) { return request.auth.uid == userId; }
+    }
+
+    // 2. Scores
+    match /moduleScores/{scoreId} {
+      allow read: if true; // Public leaderboard
+      allow create: if isSignedIn() && isValidId(scoreId) && isValidScore(incoming())
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+      allow update: if false; // Scores are typically immutable once posted, or only higher scores allowed
+      allow delete: if isAdmin();
+    }
+
+    // 3. Feedbacks
+    match /feedbacks/{feedbackId} {
+      allow create: if isValidId(feedbackId) && isValidFeedback(incoming());
+      allow read: if isAdmin();
+    }
+  }
+}

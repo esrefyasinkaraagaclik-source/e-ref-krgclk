@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { FileText, Download, Share2, Printer, ChevronLeft } from 'lucide-react';
+import { FileText, Download, Share2, Printer, ChevronLeft, Shield, Beaker } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ProjectPoster = () => {
@@ -32,135 +32,172 @@ const ProjectPoster = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative bg-white rounded-xl shadow-2xl overflow-hidden aspect-[1.414/1] w-full flex flex-col p-10 text-slate-900 font-sans"
-          style={{ fontFamily: "'Barlow', sans-serif" }}
+          className="relative bg-white shadow-2xl w-full flex flex-col p-8 md:p-12 text-slate-900 font-sans border border-slate-200 min-h-fit"
+          style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          {/* Poster Header */}
-          <div className="flex justify-between items-start border-b-2 border-slate-200 pb-6 mb-8">
-            <div>
-              <h1 className="text-3xl font-bold uppercase tracking-tight text-slate-800 italic">PROJE SUNUM POSTERİ ÖRNEĞİ</h1>
-              <p className="text-slate-500 font-medium text-sm">4006 Destek Programının Proje Sunum Posteri örneği aşağıda sunulmuştur.</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-slate-100 rounded-lg flex items-center justify-center border border-slate-200">
-                <span className="text-[10px] font-bold text-slate-400 text-center px-1 leading-tight">KURUM<br/>LOGO</span>
+          {/* Header Section */}
+          <div className="flex justify-between items-start border-b border-slate-300 pb-4 mb-8">
+            <div className="space-y-1">
+              <h1 className="text-2xl font-bold tracking-tight text-slate-800">PROJE SUNUM POSTERİ</h1>
+              <p className="text-slate-500 text-sm">4006 Destek Programının Proje Sunum Posteri örneği aşağıda sunulmuştur.</p>
+              <div className="flex gap-4 text-[10px] text-slate-400 font-medium">
+                <span>(100x80cm Dekota 3mm / 5mm)</span>
+                <span>Font: Barlow Serisi</span>
               </div>
-              <div className="w-16 h-16 bg-slate-100 rounded-lg flex items-center justify-center border border-slate-200">
-                <span className="text-[10px] font-bold text-slate-400 text-center px-1 leading-tight">TÜBİTAK<br/>LOGO</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center overflow-hidden border border-slate-200">
+                <img 
+                  src="/logo.png" 
+                  alt="Logo" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const parent = e.currentTarget.parentElement;
+                    if (parent) {
+                      const text = document.createElement('span');
+                      text.innerText = 'REAKSİYONLAB';
+                      text.className = 'text-[8px] text-white font-bold text-center px-1';
+                      parent.appendChild(text);
+                    }
+                  }}
+                  referrerPolicy="no-referrer"
+                />
               </div>
             </div>
           </div>
 
-          {/* Main Layout: 3 Columns */}
-          <div className="flex-1 grid grid-cols-3 gap-10 overflow-hidden">
-            {/* Column 1: Intro */}
-            <div className="space-y-8">
-              <div className="bg-slate-50 p-6 rounded-lg border-l-4 border-red-500 h-full flex flex-col shadow-sm">
-                <section>
-                  <h2 className="text-xl font-bold text-red-600 mb-2 border-b border-red-100 pb-2">Problem / Soru Cümlesi</h2>
-                  <p className="text-sm text-slate-700 font-medium">Yeni kurallar ile oluşturulmuş herhangi bir algoritma üretilebilir mi?</p>
-                </section>
+          {/* Main Content: 3 Column Layout */}
+          <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            {/* Left Column */}
+            <div className="space-y-4">
+              <div className="border border-slate-200 rounded-sm p-4 min-h-[120px] flex flex-col">
+                <h3 className="text-red-600 font-bold text-sm mb-2 text-center uppercase border-b border-slate-100 pb-1">Problem / Soru Cümlesi</h3>
+                <p className="text-[11px] text-slate-600 flex-1">Kimyasal tepkimeler ve gaz yasaları gibi soyut kavramlar deneysel ortam olmadan kalıcı olarak nasıl öğrenilebilir?</p>
+              </div>
 
-                <section className="mt-8">
-                  <h2 className="text-xl font-bold text-red-600 mb-2 border-b border-red-100 pb-2">Özet</h2>
-                  <div className="text-[12px] leading-relaxed text-slate-600 space-y-2">
-                    <p>Bu projede; kredi kartı ya da kimlik numaraları gibi belirli matematiksel kurallar dâhilinde oluşturulan algoritmalara bir benzeri koşulmuş olan yeni kurallarla oluşturulmuş, kart veya üye numarası gibi herhangi bir sayısal bilginin bu algoritmayı sağlayıp sağlamadığı test edilmiştir.</p>
-                  </div>
-                </section>
+              <div className="border border-slate-200 rounded-sm p-4 min-h-[200px] flex flex-col flex-1">
+                <h3 className="text-red-600 font-bold text-sm mb-2 text-center uppercase border-b border-slate-100 pb-1">Özet</h3>
+                <p className="text-[10px] leading-relaxed text-slate-600">
+                  Bu projede; kimyasal bağlar, gaz kanunları ve tepkime türleri gibi temel kimya konularının interaktif simülasyonlar ve oyunlaştırılmış içeriklerle öğretildiği bir "Sanal Laboratuvar" platformu geliştirilmiştir. Web tabanlı bu uygulama ile her seviyeden öğrencinin laboratuvar ortamına erişimi hedeflenmiştir.
+                </p>
+              </div>
 
-                <section className="mt-8 flex-1">
-                  <h2 className="text-xl font-bold text-red-600 mb-2 border-b border-red-100 pb-2">Yöntem</h2>
-                  <div className="text-[12px] leading-relaxed text-slate-600 space-y-3 overflow-y-auto pr-2">
-                    <p>Projenin ilk aşamasında örnek olarak kredi kartı numaralarının oluşturulmasında ve kontrolünde kullanılan Luhn Algoritması, T.C. kimlik numaralarının oluşturma algoritması ve baskı materyallere verilen barkod numaralarının oluşturulmasında kullanılan algoritmalar incelenmiştir.</p>
-                    <p>Bu algoritmaların çalışma biçimi, çeşitli örnek girdiler üzerinden öğrencilerin de katılımı ile denenmiştir. Projenin ikinci aşamasında ise öğrenciler tarafından belirlenen kurallarla oluşturulan sayısal algoritma taslakları oluşturulmuştur.</p>
-                  </div>
-                </section>
+              <div className="border border-slate-200 rounded-sm p-4 min-h-[180px] flex flex-col">
+                <h3 className="text-red-600 font-bold text-sm mb-2 text-center uppercase border-b border-slate-100 pb-1">Yöntem</h3>
+                <p className="text-[10px] leading-relaxed text-slate-600">
+                  Müfredat kazanımları analiz edilerek görselleştirme yöntemleri belirlendi. React ve Framer Motion teknolojileri kullanılarak dinamik atom modelleri ve gaz simülatörleri geliştirildi. Kullanıcı deneyimi odaklı arayüzler tasarlandı.
+                </p>
               </div>
             </div>
 
-            {/* Column 2: Core Info & Results */}
-            <div className="space-y-6 flex flex-col">
-              <div className="bg-slate-800 p-8 rounded-2xl text-white text-center mb-4 relative overflow-hidden shadow-lg">
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-cyan-500"></div>
-                <h2 className="text-2xl font-bold leading-tight">Kendi Sayısal Bilgi Kontrol Algoritmamızı Tasarlayalım</h2>
-              </div>
+            {/* Middle Column */}
+            <div className="flex flex-col gap-4">
+              {/* Top Logos & Title */}
+              <div className="border border-slate-200 rounded-sm p-4 flex flex-col items-center text-center">
+                <div className="flex justify-between w-full mb-4 px-4">
+                   <div className="w-10 h-10 flex items-center justify-center grayscale opacity-70"><Shield className="w-6 h-6 text-red-600" /></div>
+                   <div className="text-[10px] font-bold text-slate-800">TÜBİTAK 4006</div>
+                   <div className="w-10 h-10 flex items-center justify-center grayscale opacity-70"><Beaker className="w-6 h-6 text-slate-400" /></div>
+                </div>
+                <h2 className="text-lg font-bold text-slate-800 uppercase leading-snug mb-2">İnteraktif Sanal Kimya Laboratuvarı ve Öğrenme Platformu</h2>
+                <div className="w-full h-px bg-slate-200 mb-4"></div>
+                
+                <div className="grid grid-cols-3 gap-2 w-full text-[9px] font-bold uppercase mb-4">
+                  <div className="space-y-1">
+                    <div className="text-slate-400">Proje Türü</div>
+                    <div className="text-slate-800">Tasarım / Yazılım</div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-slate-400">Ana Alan</div>
+                    <div className="text-slate-800">Kimya / Teknoloji</div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-slate-400">Konu Başlığı</div>
+                    <div className="text-slate-800 leading-tight">Dijital Eğitim</div>
+                  </div>
+                </div>
 
-              <div className="grid grid-cols-3 gap-3 mb-4">
-                <div className="bg-slate-50 p-3 rounded-xl text-center border border-slate-200 shadow-sm">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">Proje Türü</span>
-                  <span className="text-[13px] font-bold text-slate-800">Tasarım</span>
-                </div>
-                <div className="bg-slate-50 p-3 rounded-xl text-center border border-slate-200 shadow-sm">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">Ana Alan</span>
-                  <span className="text-[13px] font-bold text-slate-800">Matematik</span>
-                </div>
-                <div className="bg-slate-50 p-3 rounded-xl text-center border border-slate-200 shadow-sm">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">Tematik Konu</span>
-                  <span className="text-[11px] font-bold text-slate-800 leading-tight">Özgün Algoritma Tasarımı</span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-3 mb-4">
-                <div className="bg-slate-100/50 p-4 rounded-xl border border-slate-200 flex justify-between items-center">
-                  <div>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">Görevli Öğrenciler</span>
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-[12px] font-bold text-slate-800">
-                      <span>Efe Gayret</span>
-                      <span>Barış Demir</span>
-                      <span>Pınar Özcan</span>
+                <div className="grid grid-cols-2 gap-4 w-full text-[9px] border-t border-slate-100 pt-4">
+                  <div className="text-left">
+                    <div className="text-slate-400 uppercase mb-1">Görevli Öğrenciler</div>
+                    <div className="text-slate-800 font-bold space-y-0.5">
+                      <p>Eşref Yasin Karaağaçlık</p>
+                      <p>Mustafa Kaan Gider</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">Danışman Öğretmen</span>
-                    <div className="text-[12px] font-bold text-slate-800">Can Kaya</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex-1 bg-slate-50 p-6 rounded-lg border-t-4 border-slate-400 flex flex-col shadow-sm">
-                <h2 className="text-xl font-bold text-slate-700 mb-4 text-center uppercase tracking-widest">BULGULAR</h2>
-                <div className="flex-1 bg-white border-2 border-dashed border-slate-200 rounded-xl flex items-center justify-center p-4">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Printer className="w-8 h-8 text-slate-300" />
+                    <div className="text-slate-400 uppercase mb-1">Danışman Öğretmen</div>
+                    <div className="text-slate-800 font-bold">
+                      <p>Berna Sivri İşyapan</p>
                     </div>
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Tablo ve Görsel Alanı</p>
-                    <p className="text-[9px] text-slate-300 mt-1 italic">(Grafik, tablo, şekil, fotoğraf ve gözlemler)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bulgular */}
+              <div className="border border-slate-200 rounded-sm p-4 flex-1 flex flex-col">
+                <h3 className="text-red-600 font-bold text-sm mb-4 text-center uppercase border-b border-slate-100 pb-1">Kullanılan Teknolojiler</h3>
+                <div className="flex-1 bg-slate-50 border border-dashed border-slate-200 rounded flex flex-col items-start justify-start p-3 overflow-y-auto">
+                  <div className="space-y-3 w-full text-[8.5px] text-slate-700">
+                    <div>
+                      <span className="font-bold text-slate-900 block border-b border-slate-200 mb-1">1. Yazılım Teknolojileri</span>
+                      <p>TypeScript, React 19, Node.js</p>
+                    </div>
+                    <div>
+                      <span className="font-bold text-slate-900 block border-b border-slate-200 mb-1">2. Yapay Zeka</span>
+                      <p>Google Gemini AI (Gemini 2.0 Flash)</p>
+                    </div>
+                    <div>
+                      <span className="font-bold text-slate-900 block border-b border-slate-200 mb-1">3. Görselleştirme</span>
+                      <p>Three.js, React Three Fiber, Recharts, D3.js</p>
+                    </div>
+                    <div>
+                      <span className="font-bold text-slate-900 block border-b border-slate-200 mb-1">4. Tasarım & UX</span>
+                      <p>Tailwind CSS (v4), Framer Motion, Lucide React</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Column 3: Conclusion & Refs */}
-            <div className="space-y-8">
-              <div className="bg-slate-50 p-6 rounded-lg border-r-4 border-red-500 h-full flex flex-col shadow-sm">
-                <section className="flex-1">
-                  <h2 className="text-xl font-bold text-red-600 mb-4 border-b border-red-100 pb-2">Sonuç ve Tartışma</h2>
-                  <div className="text-[12px] leading-relaxed text-slate-600 space-y-3">
-                    <p>Proje sonunda öğrencilerde, günlük hayatımızda birçok yerde karşımıza çıkan sayısal bilgilerin rastgele değil aslında bir aritmetik kural dâhilinde oluşturulduğu konusunda farkındalık oluşturulmuştur.</p>
-                    <p className="font-medium text-slate-700">Öğrenciler tarafından bu tür algoritmaların temel aritmetik işlemler kullanılarak kolaylıkla tasarlanabileceği fark edilmiş, bu süreçte kullanılan matematik kavramları hatırlanmış ve oluşturdukları özgün algoritmalar ile gerçekleştirecekleri numara ayıntları sayesinde bir algoritmanın girdi ve çıktıları arasındaki ilişkiler anlaşılmıştır.</p>
-                  </div>
-                </section>
+            {/* Right Column */}
+            <div className="space-y-4">
+              <div className="border border-slate-200 rounded-sm p-4 flex-1 flex flex-col min-h-[300px]">
+                <h3 className="text-red-600 font-bold text-sm mb-2 text-center uppercase border-b border-slate-100 pb-1">Sonuç ve Tartışma</h3>
+                <div className="text-[10px] leading-relaxed text-slate-600 space-y-2">
+                  <p><strong>1. Yazılım:</strong> TypeScript ve React 19 kullanımı ile yüksek performanslı ve tip güvenli bir platform elde edilmiştir.</p>
+                  <p><strong>2. AI Ent.:</strong> Gemini 2.0 Flash ile öğrencilere 7/24 rehberlik eden bir asistan entegre edilmiştir.</p>
+                  <p><strong>3. Grafik:</strong> Three.js ile molekül modelleri ve deney düzenekleri sanal ortamda gerçeğe yakın simüle edilmiştir.</p>
+                  <p><strong>4. UX:</strong> Tailwind v4 ve Motion ile interaktif, akıcı bir öğrenme deneyimi sunulmuştur.</p>
+                  <p><strong>5. Veri:</strong> Maarif müfredatına uygun modüler yapı ile sürdürülebilirlik sağlanmış, kimya eğitiminde dijital dönüşüm hedefine ulaşılmıştır.</p>
+                </div>
+              </div>
 
-                <section className="mt-8">
-                  <h2 className="text-xl font-bold text-red-600 mb-4 border-b border-red-100 pb-2">Kaynaklar</h2>
-                  <ul className="text-[11px] text-slate-500 space-y-1.5 list-decimal list-inside">
-                    <li>Matematik Ders Kitapları</li>
-                    <li>Luhn Algoritması Teknik Dokümanları</li>
-                    <li>T.C. Nüfus ve Vatandaşlık İşleri Algoritma Verileri</li>
-                    <li>TÜBİTAK 4006 Proje Hazırlama Kılavuzu</li>
-                  </ul>
-                </section>
+              <div className="border border-slate-200 rounded-sm p-4 min-h-[120px] flex flex-col overflow-y-auto">
+                <h3 className="text-red-600 font-bold text-sm mb-2 text-center uppercase border-b border-slate-100 pb-1">Kaynaklar</h3>
+                <ul className="text-[8px] text-slate-500 list-decimal list-inside space-y-0.5">
+                  <li>TypeScript & React 19 Resmi Dokümantasyonu</li>
+                  <li>Google Gemini AI API Referans Rehberi</li>
+                  <li>Three.js & WebGL Grafik Motoru Kaynakları</li>
+                  <li>Tailwind CSS v4 & Framer Motion Animasyon Kılavuzu</li>
+                  <li>MEB Maarif Müfredatı 10. Sınıf Kimya Kazanımları</li>
+                </ul>
               </div>
             </div>
+
           </div>
 
-
-          <div className="mt-8 flex justify-between items-end border-t border-slate-100 pt-4">
-            <span className="text-[10px] font-medium text-slate-400">TÜBİTAK BİLİM ve TOPLUM BAŞKANLIĞI | 4006 Destek Programı</span>
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-slate-300" />
-              <span className="text-[10px] font-bold text-slate-400">#MİLLİ TEKNOLOJİ HAMLESİ</span>
+          {/* Footer Info */}
+          <div className="mt-8 border-t border-slate-200 pt-4 flex justify-between items-end">
+            <div className="text-[9px] text-slate-400 font-medium space-x-4">
+              <span>TÜBİTAK BİLİM ve TOPLUM BAŞKANLIĞI</span>
+              <span>4006 Destek Programı Görünürlük Rehberi</span>
+            </div>
+            <div className="text-red-600 font-black text-[14px] leading-none text-right">
+              <span className="block text-[8px] mb-1">#MİLLİ</span>
+              <span>TEKNOLOJİ<br/>HAMLESİ</span>
             </div>
           </div>
         </motion.div>
