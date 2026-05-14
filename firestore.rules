@@ -2,12 +2,12 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Safety: Deny by default
+    
     match /{document=**} {
       allow read, write: if false;
     }
 
-    // Helpers
+    
     function isSignedIn() {
       return request.auth != null;
     }
@@ -24,7 +24,7 @@ service cloud.firestore {
       return request.resource.data;
     }
 
-    // 1. Users
+    
     match /users/{userId} {
       allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
       allow list: if isSignedIn();
@@ -32,20 +32,20 @@ service cloud.firestore {
       allow update: if isSignedIn() && (request.auth.uid == userId || isAdmin());
     }
 
-    // 2. Scores
+    
     match /moduleScores/{scoreId} {
       allow read: if true;
       allow create: if isSignedIn() && incoming().userId == request.auth.uid;
       allow delete: if isAdmin();
     }
 
-    // 3. Feedbacks
+    
     match /feedbacks/{feedbackId} {
-      allow create: if true; // Public feedback submissions
+      allow create: if true; 
       allow read: if isAdmin();
     }
 
-    // 4. AI Chat History
+    
     match /chats/{chatId} {
       allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
       allow create: if isSignedIn() && incoming().userId == request.auth.uid;

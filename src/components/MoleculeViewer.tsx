@@ -15,13 +15,13 @@ interface BondProps {
 }
 
 const elementColors: Record<string, string> = {
-  'H': '#ffffff', // White
-  'C': '#222222', // Black/Dark Grey
-  'O': '#ff0000', // Red
-  'N': '#0000ff', // Blue
-  'Cl': '#00ff00', // Green
-  'He': '#d9ffff', // Light Cyan
-  'Na': '#8855ff', // Purple-ish
+  'H': '#ffffff', 
+  'C': '#222222', 
+  'O': '#ff0000', 
+  'N': '#0000ff', 
+  'Cl': '#00ff00', 
+  'He': '#d9ffff', 
+  'Na': '#8855ff', 
 };
 
 const elementSizes: Record<string, number> = {
@@ -93,7 +93,7 @@ function Bond({ start, end }: BondProps) {
   const distance = startVec.distanceTo(endVec);
   const position = startVec.clone().lerp(endVec, 0.5);
   
-  // Calculate rotation to point from start to end
+  
   const quaternion = new THREE.Quaternion();
   const up = new THREE.Vector3(0, 1, 0);
   const direction = endVec.clone().sub(startVec).normalize();
@@ -134,12 +134,12 @@ interface MoleculeViewerProps {
 export function MoleculeViewer({ model, disableInteraction = false, hideLabels = false, className }: MoleculeViewerProps) {
   const containerClass = className || "w-full h-[400px] bg-slate-900 rounded-xl overflow-hidden relative border border-slate-800";
   
-  // Try to detect charge from formula (e.g., Na+, Cl-, Mg2+, SO4 2-)
-  // We look for superscript or standard signs at the end of the formula
+  
+  
   const chargeMatch = model.formula.match(/([⁺⁻\+\-]+)$/);
   const rawCharge = chargeMatch ? chargeMatch[0] : undefined;
   
-  // Normalize superscript characters for 3D text rendering (standard fonts lack superscript glyphs)
+  
   const charge = rawCharge ? rawCharge.replace(/⁺/g, '+').replace(/⁻/g, '-') : undefined;
 
   return (

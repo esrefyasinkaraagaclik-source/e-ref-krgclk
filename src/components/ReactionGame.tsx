@@ -21,7 +21,7 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
 
   const currentReaction = reactions[currentReactionIdx];
 
-  // Initialize coefficients to 1
+  
   useEffect(() => {
     if (currentReaction) {
       setReactantsCoeffs(currentReaction.reactants.map(() => 1));
@@ -31,7 +31,7 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
     }
   }, [currentReactionIdx, currentReaction]);
 
-  // Calculate atom counts
+  
   const calculateAtoms = (items: ReactionItem[], coeffs: number[]) => {
     const counts: Record<string, number> = {};
     items.forEach((item, idx) => {
@@ -46,12 +46,12 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
   const reactantsAtoms = calculateAtoms(currentReaction.reactants, reactantsCoeffs);
   const productsAtoms = calculateAtoms(currentReaction.products, productsCoeffs);
 
-  // Check if balanced
+  
   useEffect(() => {
     const allElements = new Set([...Object.keys(reactantsAtoms), ...Object.keys(productsAtoms)]);
     
-    // Also check if they are the simplest integer ratio (optional, but good for chemistry)
-    // For now, just check if it matches the correct coefficients defined in data
+    
+    
     let matchesCorrect = true;
     currentReaction.reactants.forEach((r, i) => {
       if (reactantsCoeffs[i] !== r.correctCoefficient) matchesCorrect = false;
@@ -63,11 +63,11 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
     setIsBalanced(matchesCorrect);
   }, [reactantsCoeffs, productsCoeffs, reactantsAtoms, productsAtoms, currentReaction]);
 
-  // Calculate tilt for the scale animation
+  
   const reactantsTotalAtoms = Object.values(reactantsAtoms).reduce((a, b) => a + b, 0);
   const productsTotalAtoms = Object.values(productsAtoms).reduce((a, b) => a + b, 0);
   
-  // Calculate a tilt degree between -15 and 15
+  
   let tiltDegree = 0;
   if (reactantsTotalAtoms > productsTotalAtoms) tiltDegree = -12;
   if (productsTotalAtoms > reactantsTotalAtoms) tiltDegree = 12;
@@ -163,11 +163,11 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
         <p className="text-slate-400">{currentReaction.description}</p>
       </div>
 
-      {/* Reaction Builder Area */}
+      {}
       <div className="bg-slate-900/50 p-6 sm:p-8 rounded-2xl border border-slate-800 mb-8 relative overflow-hidden">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-4">
           
-          {/* Reactants */}
+          {}
           <div className="flex flex-wrap justify-center items-center gap-4">
             {currentReaction.reactants.map((item, idx) => (
               <React.Fragment key={`r-${idx}`}>
@@ -177,13 +177,13 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
             ))}
           </div>
 
-          {/* Arrow */}
+          {}
           <div className="flex flex-col items-center justify-center px-4">
             <ArrowRight className="w-12 h-12 text-slate-500 hidden lg:block" />
             <ArrowRight className="w-12 h-12 text-slate-500 block lg:hidden rotate-90 my-4" />
           </div>
 
-          {/* Products */}
+          {}
           <div className="flex flex-wrap justify-center items-center gap-4">
             {currentReaction.products.map((item, idx) => (
               <React.Fragment key={`p-${idx}`}>
@@ -195,7 +195,7 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
 
         </div>
 
-        {/* Success Overlay */}
+        {}
         <AnimatePresence>
           {showSuccess && (
             <motion.div 
@@ -224,9 +224,9 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
         </AnimatePresence>
       </div>
 
-      {/* Atom Counters & Scale */}
+      {}
       <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-8 w-full max-w-4xl mx-auto">
-        {/* Reactants Panel */}
+        {}
         <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 w-full md:w-1/3 shadow-inner">
           <h4 className="text-center font-bold text-slate-300 mb-4 border-b border-slate-700 pb-2 flex items-center justify-center gap-2">
             Girenler
@@ -242,7 +242,7 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
           </div>
         </div>
 
-        {/* Visual Animated Scale */}
+        {}
         <div className="flex flex-col items-center justify-center w-full md:w-1/3 py-4">
           <motion.div
             animate={{ rotate: tiltDegree }}
@@ -262,7 +262,7 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
           </div>
         </div>
 
-        {/* Products Panel */}
+        {}
         <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 w-full md:w-1/3 shadow-inner">
           <h4 className="text-center font-bold text-slate-300 mb-4 border-b border-slate-700 pb-2 flex items-center justify-center gap-2">
             Ürünler
@@ -289,7 +289,7 @@ export function ReactionGame({ reactions, onComplete }: ReactionGameProps) {
         </div>
       </div>
 
-      {/* Action Button */}
+      {}
       {!showSuccess && (
         <div className="flex justify-center">
           <button

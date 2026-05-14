@@ -21,32 +21,32 @@ export function Dashboard() {
     if (lastCompletedIndex !== -1 && lastCompletedIndex < flattenedModules.length - 1) {
       nextModule = flattenedModules[lastCompletedIndex + 1];
     } else {
-      // If the last completed is the very last module, or not found, fallback to first uncompleted
+      
       nextModule = flattenedModules.find(m => !userProfile.completedModules?.includes(m.id)) || null;
     }
   } else {
-    // If no modules completed, next is the first one
+    
     nextModule = flattenedModules.length > 0 ? flattenedModules[0] : null;
   }
 
-  // Calculate overall progress
+  
   const totalModules = curriculum.reduce((acc, konu) => acc + konu.modules.length, 0);
   const completedCount = userProfile.completedModules?.length || 0;
   const overallProgress = Math.round((completedCount / totalModules) * 100) || 0;
 
   return (
     <div className="space-y-8">
-      {/* Header */}
+      {}
       <div>
         <h1 className="text-3xl font-bold font-display text-white mb-2">Öğrenci Paneli</h1>
         <p className="text-slate-400">Hoş geldin {userProfile.displayName}, bugünkü kimya görevlerin seni bekliyor.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Content Column */}
+        {}
         <div className="lg:col-span-2 space-y-8">
           
-          {/* Continue Learning */}
+          {}
           {nextModule ? (
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ export function Dashboard() {
                   </div>
                 </div>
                 
-                {/* Circular Progress */}
+                {}
                 <div className="hidden sm:flex relative w-24 h-24 items-center justify-center">
                   <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                     <path
@@ -117,7 +117,7 @@ export function Dashboard() {
             </motion.div>
           )}
 
-          {/* Topics Progress */}
+          {}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -169,10 +169,10 @@ export function Dashboard() {
           </motion.div>
         </div>
 
-        {/* Sidebar Column */}
+        {}
         <div className="space-y-8">
           
-          {/* Recent Badges */}
+          {}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}

@@ -57,7 +57,7 @@ export function MoleculeDesigner({ model, onChange }: Props) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6">
-          {/* Atoms */}
+          {}
           <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
             <h5 className="text-white font-medium mb-4">Atomlar</h5>
             <div className="space-y-2 mb-4">
@@ -108,7 +108,7 @@ export function MoleculeDesigner({ model, onChange }: Props) {
             </div>
           </div>
 
-          {/* Bonds */}
+          {}
           <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
             <h5 className="text-white font-medium mb-4">Bağlar</h5>
             <div className="space-y-2 mb-4">
@@ -142,7 +142,7 @@ export function MoleculeDesigner({ model, onChange }: Props) {
           </div>
         </div>
 
-        {/* Preview */}
+        {}
         <div>
           <h5 className="text-white font-medium mb-4">Önizleme</h5>
           <MoleculeViewer model={model} />

@@ -5,7 +5,7 @@ export function AnimatedBackground() {
     <div className="fixed inset-0 z-[-1] overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900">
       <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay"></div>
       
-      {/* Floating Orbs */}
+      {}
       <motion.div
         className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"
         animate={{
@@ -25,7 +25,7 @@ export function AnimatedBackground() {
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
       
-      {/* Particles / Molecules */}
+      {}
       {Array.from({ length: 20 }).map((_, i) => (
         <motion.div
           key={i}

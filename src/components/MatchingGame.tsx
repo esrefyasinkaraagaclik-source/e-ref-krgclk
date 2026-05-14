@@ -29,7 +29,7 @@ export function MatchingGame({ pairs, onComplete }: MatchingGameProps) {
   const [errors, setErrors] = useState(0);
   const [startTime] = useState(Date.now());
 
-  // Shuffle arrays on mount
+  
   useEffect(() => {
     const shuffledLeft = [...pairs].sort(() => Math.random() - 0.5).map(p => ({ id: p.left, text: p.left }));
     const shuffledRight = [...pairs].sort(() => Math.random() - 0.5).map((p, i) => ({ 
@@ -43,7 +43,7 @@ export function MatchingGame({ pairs, onComplete }: MatchingGameProps) {
     setRightItems(shuffledRight);
   }, [pairs]);
 
-  // Check for match when both selected
+  
   useEffect(() => {
     if (selectedLeft && selectedRight) {
       const leftPair = pairs.find(p => p.left === selectedLeft);
@@ -52,16 +52,16 @@ export function MatchingGame({ pairs, onComplete }: MatchingGameProps) {
       const isMatch = leftPair && rightPairText && leftPair.right.trim() === rightPairText.trim();
       
       if (isMatch) {
-        // Match success
+        
         setMatchedPairs(prev => [...prev, { leftId: selectedLeft, rightId: selectedRight }]);
         setSelectedLeft(null);
         setSelectedRight(null);
       } else {
-        // Match failed
+        
         setErrorPair({ left: selectedLeft, right: selectedRight });
         setErrors(prev => prev + 1);
         
-        // Reset selection after delay
+        
         setTimeout(() => {
           setErrorPair(null);
           setSelectedLeft(null);
@@ -71,7 +71,7 @@ export function MatchingGame({ pairs, onComplete }: MatchingGameProps) {
     }
   }, [selectedLeft, selectedRight, pairs, rightItems]);
 
-  // Check for completion
+  
   useEffect(() => {
     if (matchedPairs.length === pairs.length && pairs.length > 0) {
       const timeInSeconds = Math.floor((Date.now() - startTime) / 1000);
@@ -94,7 +94,7 @@ export function MatchingGame({ pairs, onComplete }: MatchingGameProps) {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left Column */}
+        {}
         <div className="space-y-3">
           {leftItems.map((item) => {
             const isMatched = matchedPairs.some(m => m.leftId === item.id);
@@ -130,7 +130,7 @@ export function MatchingGame({ pairs, onComplete }: MatchingGameProps) {
           })}
         </div>
 
-        {/* Right Column */}
+        {}
         <div className="space-y-3">
           {rightItems.map((item) => {
             const isMatched = matchedPairs.some(m => m.rightId === item.id);

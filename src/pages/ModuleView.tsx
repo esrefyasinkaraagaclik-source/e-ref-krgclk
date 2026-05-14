@@ -44,7 +44,7 @@ export function ModuleView() {
       <div className="text-center py-20 text-slate-400">Yükleniyor...</div>
     );
 
-  // Find module
+  
   let moduleData = null;
   let konuData = null;
   for (const konu of curriculum) {
@@ -56,14 +56,14 @@ export function ModuleView() {
     }
   }
 
-  // Effect to decide initial tab and check completion
+  
   useEffect(() => {
     if (moduleData) {
-      // Priority 1: User selection from navigation
+      
       if (location.state?.initialTab) {
         setActiveTab(location.state.initialTab);
       } else if (!moduleData.theory && moduleData.type !== "lesson") {
-        // Priority 2: Fallback if no theory exists
+        
         setActiveTab("activity");
       }
       
@@ -88,7 +88,7 @@ export function ModuleView() {
 
       await completeModule(moduleData.id);
 
-      // Check for badges (e.g., first module completed)
+      
       if (isFirst) {
         await awardBadge("kimya_kasifi");
       }
@@ -278,7 +278,7 @@ export function ModuleView() {
         </div>
       </div>
 
-      {/* TABS */}
+      {}
       {(moduleData.theory || moduleData.type === "lesson") && moduleData.type !== "quiz" && (
         <div className="flex gap-2 mb-6 p-1 bg-white/5 rounded-2xl w-fit border border-white/10">
           <button
@@ -317,7 +317,7 @@ export function ModuleView() {
             {moduleData.theory ? (
               renderTheory(moduleData.theory)
             ) : moduleData.type === "lesson" ? (
-              // Original Lesson logic
+              
               <div className="space-y-8">
                 {moduleData.blocks && moduleData.blocks.length > 0 ? (
                   <div className="space-y-8">
@@ -421,7 +421,7 @@ export function ModuleView() {
                       }
                       if (paragraph.trim() === "") return <br key={idx} />;
 
-                      // Handle inline bolding
+                      
                       const parts = paragraph.split(/(\*\*.*?\*\*)/g);
                       return (
                         <p
@@ -461,8 +461,8 @@ export function ModuleView() {
           </div>
         ) : (
           <div className="w-full">
-            {/* ACTIVITY CONTENT */}
-            {/* MOLE CALCULATION GAME TYPE */}
+            {}
+            {}
             {moduleData.type === "mole-calculation" &&
               moduleData.moleCalculations && (
                 <div className="space-y-8">
@@ -482,7 +482,7 @@ export function ModuleView() {
                 </div>
               )}
 
-            {/* REACTION CLASSIFICATION GAME TYPE */}
+            {}
             {moduleData.type === "reaction-classification" &&
               moduleData.reactionClassifications && (
                 <div className="space-y-8">
@@ -501,7 +501,7 @@ export function ModuleView() {
                 </div>
               )}
 
-            {/* CLASSIFICATION GAME TYPE */}
+            {}
             {moduleData.type === "classification" && moduleData.classifications && (
               <div className="space-y-8">
                 {!classificationFinished ? (
@@ -519,7 +519,7 @@ export function ModuleView() {
               </div>
             )}
 
-            {/* REACTION GAME TYPE */}
+            {}
             {moduleData.type === "reaction" && moduleData.reactions && (
               <div className="space-y-8">
                 {!reactionFinished ? (
@@ -537,7 +537,7 @@ export function ModuleView() {
               </div>
             )}
 
-            {/* INTERACTIVE 3D TYPE */}
+            {}
             {moduleData.type === "interactive" && moduleData.models && (
               <div className="space-y-8">
                 <p className="text-slate-300 leading-relaxed text-lg mb-6">
@@ -564,7 +564,7 @@ export function ModuleView() {
               </div>
             )}
 
-            {/* MATCHING GAME TYPE */}
+            {}
             {moduleData.type === "matching" && moduleData.pairs && (
               <div className="space-y-8">
                 <MatchingGame
@@ -595,7 +595,7 @@ export function ModuleView() {
               </div>
             )}
 
-            {/* MINDMAP TYPE */}
+            {}
             {moduleData.type === "mindmap" && moduleData.mindmapNodes && (
               <div className="space-y-8">
                 <MindmapActivity
@@ -627,7 +627,7 @@ export function ModuleView() {
               </div>
             )}
 
-            {/* QUIZ TYPE */}
+            {}
             {moduleData.type === "quiz" &&
               moduleData.questions &&
               !quizFinished && (
@@ -819,7 +819,7 @@ export function ModuleView() {
                 </div>
               )}
 
-            {/* QUIZ FINISHED STATE */}
+            {}
             {moduleData.type === "quiz" && quizFinished && (
                <TrophySummary 
                   title="Test Tamamlandı!" 

@@ -1,7 +1,4 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { GoogleGenAI } from "@google/genai";
@@ -31,7 +28,7 @@ export function AIAssistant() {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Load messages from Firestore
+  
   useEffect(() => {
     if (!userProfile?.uid) return;
 
@@ -60,7 +57,7 @@ export function AIAssistant() {
     fetchMessages();
   }, [userProfile?.uid]);
 
-  // Suggested questions based on context
+  
   const suggestions = useMemo(() => {
     const path = location.pathname;
     
@@ -108,14 +105,14 @@ export function AIAssistant() {
     ];
   }, [location.pathname]);
 
-  // Listen for exercise theme changes
+  
   useEffect(() => {
     const handleThemeChange = (e: any) => {
       setActiveExerciseThemeId(e.detail.themeId);
     };
     window.addEventListener('exercise-theme-changed', handleThemeChange);
     
-    // Initial sync from localStorage if on exercises page
+    
     if (location.pathname === '/exercises') {
       const stored = localStorage.getItem('active-exercise-theme');
       if (stored) setActiveExerciseThemeId(stored);
@@ -132,7 +129,7 @@ export function AIAssistant() {
     return new GoogleGenAI({ apiKey: key || '' });
   }, []);
 
-  // Determine page context for AI
+  
   const pageContext = useMemo(() => {
     const path = location.pathname;
     
@@ -150,7 +147,7 @@ export function AIAssistant() {
     else if (path === '/lab') detailedContext = "Sanal Laboratuvar. Kimya deneyleri odası.";
     else if (path === '/poster') detailedContext = "Proje Posteri sayfası.";
     
-    // Exercises page context
+    
     if (path === '/exercises') {
       const activeThemeId = activeExerciseThemeId || localStorage.getItem('active-exercise-theme') || (konular.length > 0 ? konular[0].id : null);
       
@@ -161,7 +158,7 @@ export function AIAssistant() {
         const qList = exercises[activeThemeId];
         allExercisesStr = `ŞU AN GÖRÜNTÜLENEN KONU: ${currentKonu?.title || activeThemeId}\n${qList.map((q, i) => `${i+1}. Soru: ${q.question}\n   Seçenekler: ${q.options?.join(', ')}\n   Cevap: ${q.answer}\n   Açıklama: ${q.explanation}`).join('\n')}`;
       } else {
-        // Fallback for all
+        
         allExercisesStr = Object.entries(exercises).map(([konuId, qList]) => {
           const konu = konular.find(k => k.id === konuId);
           return `KONU: ${konu?.title || konuId}\n${qList.map((q, i) => `${i+1}. Soru: ${q.question}\n   Seçenekler: ${q.options?.join(', ')}\n   Cevap: ${q.answer}\n   Açıklama: ${q.explanation}`).join('\n')}`;
@@ -175,7 +172,7 @@ export function AIAssistant() {
       ${allExercisesStr}`;
     }
     
-    // Module specific context
+    
     if (path.startsWith('/module/')) {
       const moduleId = path.split('/').pop();
       let moduleFound = null;
@@ -246,7 +243,7 @@ export function AIAssistant() {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
-    // Save user message to Firestore
+    
     if (userProfile?.uid) {
       try {
         await addDoc(collection(db, 'chats'), {
@@ -256,7 +253,7 @@ export function AIAssistant() {
           timestamp: serverTimestamp()
         });
 
-        // Award badge for first chat if missing
+        
         if (userProfile.badges && !userProfile.badges.includes('ai_explorer')) {
            awardBadge('ai_explorer');
         }
@@ -309,7 +306,7 @@ export function AIAssistant() {
       const aiResponse = response.text || "Üzgünüm, bir hata oluştu ve yanıt oluşturulamadı.";
       setMessages(prev => [...prev, { role: 'model', content: aiResponse }]);
 
-      // Save AI response to Firestore
+      
       if (userProfile?.uid) {
         try {
           await addDoc(collection(db, 'chats'), {
@@ -368,7 +365,7 @@ export function AIAssistant() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="absolute bottom-20 right-0 w-[400px] max-w-[calc(100vw-2rem)] h-[500px] glass-card flex flex-col shadow-2xl overflow-hidden border-cyan-500/30"
           >
-            {/* Header */}
+            {}
             <div className="p-4 bg-gradient-to-r from-indigo-900 to-slate-900 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center border border-cyan-500/30">
@@ -399,7 +396,7 @@ export function AIAssistant() {
               </div>
             </div>
 
-            {/* Messages */}
+            {}
             <div 
               ref={scrollRef}
               className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar"
@@ -452,9 +449,9 @@ export function AIAssistant() {
               )}
             </div>
 
-            {/* Input and Suggestions */}
+            {}
             <div className="p-4 border-t border-white/10 bg-black/20 space-y-4">
-              {/* Suggestions */}
+              {}
               {messages.length < 8 && (
                 <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar scroll-smooth">
                   {suggestions.map((suggestion, idx) => (
@@ -507,7 +504,7 @@ export function AIAssistant() {
             <MessageSquare key="open" className="w-7 h-7" />
           )}
         </AnimatePresence>
-        {/* Glow effect */}
+        {}
         <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-lg group-hover:bg-cyan-400/30 transition-all -z-10" />
       </motion.button>
     </div>

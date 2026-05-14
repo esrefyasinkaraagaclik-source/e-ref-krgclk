@@ -1,7 +1,4 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
@@ -25,7 +22,7 @@ import { Navbar } from './components/Navbar';
 import { AnimatedBackground } from './components/AnimatedBackground';
 import { AIAssistant } from './components/AIAssistant';
 
-// Protected Route Wrapper
+
 function ProtectedRoute({ children }: { children?: React.ReactNode }) {
   const { currentUser, loading } = useAuth();
   
@@ -38,7 +35,7 @@ function ProtectedRoute({ children }: { children?: React.ReactNode }) {
   return children ? <>{children}</> : <Outlet />;
 }
 
-// Public Route Wrapper (redirects to dashboard if logged in)
+
 function PublicRoute({ children }: { children?: React.ReactNode }) {
   const { currentUser, loading } = useAuth();
   
@@ -62,12 +59,12 @@ export default function App() {
             <AIAssistant />
             
             <Routes>
-              {/* Public Routes */}
+              {}
               <Route path="/" element={<Landing />} />
               <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
               <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
               
-              {/* Protected Routes */}
+              {}
               <Route element={<ProtectedRoute />}>
                 <Route element={<MainLayout />}>
                   <Route path="/dashboard" element={<Dashboard />} />
@@ -85,7 +82,7 @@ export default function App() {
                 </Route>
               </Route>
               
-              {/* Fallback */}
+              {}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>

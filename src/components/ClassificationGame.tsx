@@ -42,7 +42,7 @@ export function ClassificationGame({ data, onComplete }: ClassificationGameProps
   };
 
   if (isFinished) {
-    return null; // Handled by parent
+    return null; 
   }
 
   return (
@@ -89,7 +89,7 @@ export function ClassificationGame({ data, onComplete }: ClassificationGameProps
           ))}
         </div>
 
-        {/* Feedback Overlay */}
+        {}
         <AnimatePresence>
           {showFeedback && (
             <motion.div

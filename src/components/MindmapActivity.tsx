@@ -56,9 +56,9 @@ export function MindmapActivity({ nodes, centralText = "Merkez Node", onComplete
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[600px] relative">
-      {/* Mindmap Visualization */}
+      {}
       <div className="relative w-full max-w-3xl h-[500px] sm:h-[600px] mx-auto flex items-center justify-center">
-        {/* SVG Lines Background */}
+        {}
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
           {nodes.map((node, index) => {
             const angle = (index * 360) / nodes.length;
@@ -80,12 +80,12 @@ export function MindmapActivity({ nodes, centralText = "Merkez Node", onComplete
           })}
         </svg>
 
-        {/* Central Node */}
+        {}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-slate-800 border-4 border-cyan-500 flex items-center justify-center text-center p-4 shadow-[0_0_30px_rgba(6,182,212,0.3)]">
           <span className="font-bold text-white text-sm sm:text-base">{centralText}</span>
         </div>
 
-        {/* Surrounding Nodes */}
+        {}
         {nodes.map((node, index) => {
           const angle = (index * 360) / nodes.length;
           const x = Math.cos((angle * Math.PI) / 180) * radius;
@@ -128,7 +128,7 @@ export function MindmapActivity({ nodes, centralText = "Merkez Node", onComplete
         })}
       </div>
 
-      {/* Question Modal */}
+      {}
       <AnimatePresence>
         {selectedNode && (
           <motion.div
@@ -181,7 +181,7 @@ export function MindmapActivity({ nodes, centralText = "Merkez Node", onComplete
                 ))}
               </div>
 
-              {/* Feedback Overlay */}
+              {}
               <AnimatePresence>
                 {showFeedback && (
                   <motion.div

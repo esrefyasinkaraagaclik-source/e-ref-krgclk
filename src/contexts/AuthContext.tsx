@@ -36,7 +36,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Admin emails as requested by user
+
 const ADMIN_EMAILS = [
   "esrefyasinkaraagaclik@gmail.com", 
   "mustafakaanresmi@gmail.com",
@@ -84,7 +84,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           if (docSnap.exists()) {
             const data = docSnap.data();
             
-            // Critical check for ban
+            
             if (data.isBanned) {
               console.error("Bu hesap banlanmıştır.");
               signOut(auth);
@@ -93,12 +93,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               return;
             }
 
-            // Update IP if it changed or is missing
+            
             if (currentIp && data.lastIp !== currentIp) {
               await updateDoc(docRef, { lastIp: currentIp });
             }
 
-            // Award welcome badge if missing
+            
             if (!data.badges?.includes('welcome')) {
               await updateDoc(docRef, {
                 badges: arrayUnion('welcome'),
@@ -191,7 +191,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const completeModule = async (moduleId: string) => {
     if (!currentUser || !userProfile) return;
-    if (userProfile.completedModules.includes(moduleId)) return; // Already completed
+    if (userProfile.completedModules.includes(moduleId)) return; 
 
     const newCompletedModules = [...userProfile.completedModules, moduleId];
     const newBadgesFromMilestones = await checkAndAwardBadges(newCompletedModules.length, userProfile.badges);
@@ -233,7 +233,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const submitScore = async (moduleId: string, score: number) => {
     if (!currentUser || !userProfile) return;
-    if (userProfile.isGuest) return; // Do not save guest scores
+    if (userProfile.isGuest) return; 
 
     try {
       const scoreId = `${currentUser.uid}_${moduleId}`;
@@ -252,7 +252,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             timestamp: serverTimestamp()
           });
         } else {
-          scoreDifference = 0; // No new points
+          scoreDifference = 0; 
         }
       } else {
         await setDoc(docRef, {
@@ -270,7 +270,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           totalScore: increment(scoreDifference)
         };
 
-        // Check for score_king badge
+        
         if (newTotalScore >= 1000 && !userProfile.badges.includes('score_king')) {
           updates.badges = arrayUnion('score_king');
         }

@@ -16,7 +16,7 @@ export function Landing() {
 
   return (
     <div className="flex-1 pt-24 pb-12 relative z-10 w-full">
-      {/* Main Content */}
+      {}
       <main>
         <HeroSection onStart={() => navigate(currentUser ? '/dashboard' : '/register')} />
         <FeaturesSection />

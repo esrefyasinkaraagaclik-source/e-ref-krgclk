@@ -15,7 +15,7 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Filter curriculum based on mode
+  
   const filteredCurriculum = curriculum.map(konu => {
     const filteredModules = konu.modules.filter(mod => {
       if (mode === 'theory') {
@@ -32,12 +32,12 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
   useEffect(() => {
     if (location.state) {
       if (location.state.scrollToModule) {
-        // Wait a small delay to ensure DOM is rendered with modules
+        
         setTimeout(() => {
           const element = document.getElementById(location.state.scrollToModule);
           if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            // Add a temporary highlight effect
+            
             element.classList.add('ring-4', 'ring-cyan-500', 'ring-offset-8', 'ring-offset-slate-950');
             setTimeout(() => {
               element.classList.remove('ring-4', 'ring-cyan-500', 'ring-offset-8', 'ring-offset-slate-950');
@@ -53,7 +53,7 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
         }, 100);
       }
       
-      // Clear the state so it doesn't scroll again on re-renders
+      
       window.history.replaceState({}, document.title);
     }
   }, [location.state, curriculum]);
@@ -76,7 +76,7 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
       <div className="space-y-12">
         {filteredCurriculum.map((konu, konuIndex) => (
           <div key={konu.id} id={konu.id} className="relative scroll-mt-24">
-            {/* Konu Header */}
+            {}
             <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <h2 className="text-2xl font-bold text-white mb-1">{konu.title}</h2>
@@ -100,12 +100,12 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
               </div>
             </div>
 
-            {/* Modules Grid */}
+            {}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
               {konu.modules.map((mod, modIndex) => {
                 const isCompleted = userProfile.completedModules?.includes(mod.id);
                 
-                // Serbest dolaşım: Tüm kilitler kaldırıldı
+                
                 const isUnlocked = true;
 
                 return (
@@ -160,7 +160,7 @@ export function ProgressMap({ mode = 'all' }: ProgressMapProps) {
               })}
             </div>
             
-            {/* Connecting Line (Visual only, hidden on mobile) */}
+            {}
             {konuIndex < filteredCurriculum.length - 1 && (
               <div className="hidden md:block absolute left-1/2 -bottom-8 w-0.5 h-8 bg-gradient-to-b from-cyan-500/30 to-transparent"></div>
             )}

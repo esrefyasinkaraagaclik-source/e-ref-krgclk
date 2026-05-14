@@ -35,7 +35,7 @@ const ProjectPoster = () => {
           className="relative bg-white shadow-2xl w-full flex flex-col p-8 md:p-12 text-slate-900 font-sans border border-slate-200 min-h-fit"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          {/* Header Section */}
+          {}
           <div className="flex justify-between items-start border-b border-slate-300 pb-4 mb-8">
             <div className="space-y-1">
               <h1 className="text-2xl font-bold tracking-tight text-slate-800">PROJE SUNUM POSTERİ</h1>
@@ -67,10 +67,10 @@ const ProjectPoster = () => {
             </div>
           </div>
 
-          {/* Main Content: 3 Column Layout */}
+          {}
           <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6">
             
-            {/* Left Column */}
+            {}
             <div className="space-y-4">
               <div className="border border-slate-200 rounded-sm p-4 min-h-[120px] flex flex-col">
                 <h3 className="text-red-600 font-bold text-sm mb-2 text-center uppercase border-b border-slate-100 pb-1">Problem / Soru Cümlesi</h3>
@@ -92,9 +92,9 @@ const ProjectPoster = () => {
               </div>
             </div>
 
-            {/* Middle Column */}
+            {}
             <div className="flex flex-col gap-4">
-              {/* Top Logos & Title */}
+              {}
               <div className="border border-slate-200 rounded-sm p-4 flex flex-col items-center text-center">
                 <div className="flex justify-between w-full mb-4 px-4">
                    <div className="w-10 h-10 flex items-center justify-center grayscale opacity-70"><Shield className="w-6 h-6 text-red-600" /></div>
@@ -136,7 +136,7 @@ const ProjectPoster = () => {
                 </div>
               </div>
 
-              {/* Bulgular */}
+              {}
               <div className="border border-slate-200 rounded-sm p-4 flex-1 flex flex-col">
                 <h3 className="text-red-600 font-bold text-sm mb-4 text-center uppercase border-b border-slate-100 pb-1">Kullanılan Teknolojiler</h3>
                 <div className="flex-1 bg-slate-50 border border-dashed border-slate-200 rounded flex flex-col items-start justify-start p-3 overflow-y-auto">
@@ -162,7 +162,7 @@ const ProjectPoster = () => {
               </div>
             </div>
 
-            {/* Right Column */}
+            {}
             <div className="space-y-4">
               <div className="border border-slate-200 rounded-sm p-4 flex-1 flex flex-col min-h-[300px]">
                 <h3 className="text-red-600 font-bold text-sm mb-2 text-center uppercase border-b border-slate-100 pb-1">Sonuç ve Tartışma</h3>
@@ -189,7 +189,7 @@ const ProjectPoster = () => {
 
           </div>
 
-          {/* Footer Info */}
+          {}
           <div className="mt-8 border-t border-slate-200 pt-4 flex justify-between items-end">
             <div className="text-[9px] text-slate-400 font-medium space-x-4">
               <span>TÜBİTAK BİLİM ve TOPLUM BAŞKANLIĞI</span>

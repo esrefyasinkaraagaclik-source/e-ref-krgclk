@@ -132,7 +132,7 @@ for (let i = 0; i < parts.length; i++) {
   newContent += parts[i];
   if (parts[i].match(/id: "(tema[1-7])",/)) {
     const themeId = parts[i].match(/id: "(tema[1-7])",/)[1];
-    // Next part is the modules start
+    
     newContent += parts[i+1];
     newContent += inserts[themeId] + ",";
     i++;

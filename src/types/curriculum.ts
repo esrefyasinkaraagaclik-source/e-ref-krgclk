@@ -140,16 +140,16 @@ export interface Module {
   description: string;
   type: 'lesson' | 'quiz' | 'interactive' | 'matching' | 'mindmap' | 'reaction' | 'classification' | 'reaction-classification' | 'mole-calculation';
   
-  // For lesson
+  
   blocks?: ContentBlock[];
   
-  // For quiz
+  
   questions?: QuestionData[];
   
-  // For interactive
+  
   models?: MoleculeData[];
   
-  // For matching
+  
   pairs?: { 
     left: string; 
     right: string;
@@ -157,22 +157,22 @@ export interface Module {
     rightMolecule?: MoleculeData;
   }[];
 
-  // For mindmap
+  
   mindmapNodes?: MindmapNode[];
 
-  // For reaction
+  
   reactions?: ReactionData[];
 
-  // For classification
+  
   classifications?: ClassificationData[];
 
-  // For reaction-classification
+  
   reactionClassifications?: ReactionTypeData[];
 
-  // For mole-calculation
+  
   moleCalculations?: MoleCalculationData[];
 
-  // For theory/explanation
+  
   theory?: ContentBlock[];
 }
 

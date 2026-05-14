@@ -18,7 +18,7 @@ export function Dashboard() {
     <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header */}
+        {}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold font-display text-white mb-2">Öğrenci Paneli</h1>
@@ -38,10 +38,10 @@ export function Dashboard() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          {/* Main Content Column */}
+          {}
           <div className="lg:col-span-2 space-y-8">
             
-            {/* Progress Overview */}
+            {}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ export function Dashboard() {
                   </div>
                 </div>
                 
-                {/* Circular Progress */}
+                {}
                 <div className="hidden sm:flex relative w-24 h-24 items-center justify-center">
                   <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                     <path
@@ -94,7 +94,7 @@ export function Dashboard() {
               </div>
             </motion.div>
 
-            {/* Topics Progress */}
+            {}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -146,10 +146,10 @@ export function Dashboard() {
             </motion.div>
           </div>
 
-          {/* Sidebar Column */}
+          {}
           <div className="space-y-8">
             
-            {/* Daily Mission */}
+            {}
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -175,7 +175,7 @@ export function Dashboard() {
               </div>
             </motion.div>
 
-            {/* User Badges */}
+            {}
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}

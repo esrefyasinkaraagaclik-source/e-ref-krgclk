@@ -1,7 +1,4 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
+
 
 import React, { useState, useEffect } from 'react';
 import { db, auth } from '../lib/firebase';
@@ -87,7 +84,7 @@ export function AdminPanel() {
   };
 
   const handleBanToggle = async (user: UserData) => {
-    if (user.isAdmin) return; // Prevent banning admins
+    if (user.isAdmin) return; 
     
     setActionLoading(user.uid);
     try {
@@ -96,7 +93,7 @@ export function AdminPanel() {
       } else {
         await banUser(user.uid);
       }
-      // Refresh local state
+      
       setUsers(prev => prev.map(u => 
         u.uid === user.uid ? { ...u, isBanned: !user.isBanned } : u
       ));

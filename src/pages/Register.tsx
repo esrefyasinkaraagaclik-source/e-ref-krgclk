@@ -35,7 +35,7 @@ export function Register() {
 
       await updateProfile(user, { displayName: name });
 
-      // Create user document in Firestore
+      
       await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         displayName: name,

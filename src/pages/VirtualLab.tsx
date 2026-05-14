@@ -103,9 +103,9 @@ const molecules3d: Record<string, any> = {
   }
 };
 
-// 7. Reaction Balancer Simulator
+
 function BalanceSim() {
-  const [coefficients, setCoefficients] = useState([1, 1, 1]); // H2 + O2 -> H2O
+  const [coefficients, setCoefficients] = useState([1, 1, 1]); 
   
   const isBalanced = coefficients[0] * 2 === coefficients[2] * 2 && coefficients[1] * 2 === coefficients[2] * 1;
   const isMinimal = isBalanced && coefficients[0] === 2 && coefficients[1] === 1 && coefficients[2] === 2;
@@ -333,7 +333,7 @@ export function VirtualLab() {
                 onClick={() => setActiveExperiment(exp.id as any)}
                 className="glass-card p-6 border-white/5 hover:border-cyan-500/40 transition-all text-left flex flex-col group relative overflow-hidden h-64"
               >
-                {/* Background Glow */}
+                {}
                 <div className={`absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br ${exp.color} opacity-10 blur-3xl group-hover:opacity-20 transition-opacity`} />
                 
                 <div className="flex justify-between items-start mb-6">
@@ -375,7 +375,7 @@ export function VirtualLab() {
   );
 }
 
-// 1. pH Simulator (Improved)
+
 function PHSimulator() {
   const [level, setLevel] = useState(7.0);
   const [selectedSubstance, setSelectedSubstance] = useState<string | null>('Saf Su');
@@ -503,7 +503,7 @@ function PHSimulator() {
               className="absolute bottom-0 left-0 w-full opacity-80"
             />
             
-            {/* Hand with litmus paper simulation */}
+            {}
             <motion.div
               animate={{ 
                 y: isDipping ? 150 : 0,
@@ -520,7 +520,7 @@ function PHSimulator() {
                </div>
             </motion.div>
 
-            {/* Bubbles */}
+            {}
             <div className="absolute inset-x-0 bottom-0 top-0 overflow-hidden pointer-events-none">
               {[...Array(5)].map((_, i) => (
                 <motion.div
@@ -539,11 +539,11 @@ function PHSimulator() {
   );
 }
 
-// 2. Gas Laws Simulation (Refactored for Performance & Science)
+
 function GasSim() {
-  const [vol, setVol] = useState(50); // Volume %
-  const [temp, setTemp] = useState(300); // Kelvin
-  const [p, setP] = useState(1); // Standard Atm
+  const [vol, setVol] = useState(50); 
+  const [temp, setTemp] = useState(300); 
+  const [p, setP] = useState(1); 
   const [particles, setParticles] = useState(30);
   const [gasType, setGasType] = useState<'He' | 'Ar'>('He');
   const [lockedVar, setLockedVar] = useState<'none' | 'P' | 'V' | 'T'>('none');
@@ -551,7 +551,7 @@ function GasSim() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<any[]>([]);
 
-  // PV = nRT (n is number of particles)
+  
   useEffect(() => {
     if (lockedVar === 'none' || lockedVar === 'P') {
       const calculatedP = (particles / 30) * (temp / 300) * (50 / vol);
@@ -559,18 +559,18 @@ function GasSim() {
     }
   }, [vol, temp, particles, lockedVar]);
 
-  // Handle constraints (Locked Variable Logic)
+  
   const handleVolChange = (newVol: number) => {
     if (lockedVar === 'P') {
-      // P constant -> V / T = k -> V1/T1 = V2/T2 -> T2 = V2 * T1 / V1
+      
       const newTemp = (newVol * temp) / vol;
       if (newTemp >= 100 && newTemp <= 600) {
         setTemp(newTemp);
         setVol(newVol);
       }
     } else if (lockedVar === 'T') {
-      // T constant -> P1V1 = P2V2 -> P2 = P1 * V1 / V2
-      // We calculate P in the effect, so just change V
+      
+      
       setVol(newVol);
     } else {
       setVol(newVol);
@@ -579,32 +579,32 @@ function GasSim() {
 
   const handleTempChange = (newTemp: number) => {
     if (lockedVar === 'P') {
-      // P constant -> V / T = k -> V1/T1 = V2/T2 -> V2 = T2 * V1 / T1
+      
       const newVol = (newTemp * vol) / temp;
       if (newVol >= 15 && newVol <= 90) {
         setVol(newVol);
         setTemp(newTemp);
       }
     } else if (lockedVar === 'V') {
-      // V constant -> P / T = k -> P1/T1 = P2/T2
+      
       setTemp(newTemp);
     } else {
       setTemp(newTemp);
     }
   };
 
-  // Canvas Animation
+  
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Initialize particles if count changes or they don't exist
+    
     if (particlesRef.current.length !== particles) {
       const currentParticles = particlesRef.current;
       if (particles > currentParticles.length) {
-        // Add more
+        
         const more = [...Array(particles - currentParticles.length)].map(() => ({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
@@ -613,12 +613,12 @@ function GasSim() {
         }));
         particlesRef.current = [...currentParticles, ...more];
       } else {
-        // Remove some
+        
         particlesRef.current = currentParticles.slice(0, particles);
       }
     }
 
-    // Clamp existing particles to new canvas bounds (if volume decreased)
+    
     particlesRef.current.forEach(p => {
       if (p.x > canvas.width) p.x = canvas.width - 2;
       if (p.y > canvas.height) p.y = canvas.height - 2;
@@ -634,19 +634,19 @@ function GasSim() {
         p.x += p.vx * speed;
         p.y += p.vy * speed;
 
-        // Bounce walls
+        
         if (p.x < 0) { p.x = 0; p.vx *= -1; }
         if (p.x > canvas.width) { p.x = canvas.width; p.vx *= -1; }
         if (p.y < 0) { p.y = 0; p.vy *= -1; }
         if (p.y > canvas.height) { p.y = canvas.height; p.vy *= -1; }
 
-        // Draw
+        
         ctx.beginPath();
         const radius = gasType === 'He' ? 2 : 4;
         ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
         ctx.fillStyle = gasType === 'He' ? '#22d3ee' : '#818cf8';
         ctx.fill();
-        // Glow effect
+        
         ctx.shadowBlur = 8;
         ctx.shadowColor = ctx.fillStyle;
       });
@@ -669,7 +669,7 @@ function GasSim() {
             </div>
           </div>
 
-          {/* Locked Variable Selector */}
+          {}
           <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-3">Sabit Tutulacak Değişken (Kanunlar)</label>
              <div className="grid grid-cols-4 gap-2">
@@ -709,7 +709,7 @@ function GasSim() {
                </button>
             </div>
             
-            {/* V Slider */}
+            {}
             <div>
               <div className="flex justify-between text-sm mb-3">
                 <span className="text-white flex items-center gap-2"><Box className="w-4 h-4 text-cyan-400" /> Hacim (V) {lockedVar === 'V' && '🔒'}</span>
@@ -723,7 +723,7 @@ function GasSim() {
               />
             </div>
 
-            {/* T Slider */}
+            {}
             <div>
               <div className="flex justify-between text-sm mb-3">
                 <span className="text-white flex items-center gap-2"><Thermometer className="w-4 h-4 text-orange-400" /> Sıcaklık (T) {lockedVar === 'T' && '🔒'}</span>
@@ -737,7 +737,7 @@ function GasSim() {
               />
             </div>
 
-            {/* n Slider */}
+            {}
             <div>
               <div className="flex justify-between text-sm mb-3">
                 <span className="text-white flex items-center gap-2"><div className="w-4 h-4 rounded-full bg-emerald-500/20 flex items-center justify-center text-[8px] font-bold">n</div> Tanecik Sayısı (n)</span>
@@ -769,9 +769,9 @@ function GasSim() {
         </div>
 
         <div className="relative flex flex-col items-center justify-center bg-[#0a0a0c] rounded-3xl p-8 border border-white/10 overflow-hidden shadow-2xl">
-          {/* Cylinder Container */}
+          {}
           <div className="relative w-56 h-[320px] bg-white/[0.02] border-x-4 border-b-4 border-slate-700/50 rounded-b-3xl">
-            {/* Piston */}
+            {}
             <motion.div 
                animate={{ bottom: `${vol}%` }}
                transition={{ type: 'spring', stiffness: 100, damping: 20 }}
@@ -780,7 +780,7 @@ function GasSim() {
               <div className="absolute top-6 left-1/2 -translate-x-1/2 w-4 h-[400px] bg-gradient-to-r from-slate-500 to-slate-700" />
             </motion.div>
 
-            {/* Canvas for Particles */}
+            {}
             <div className="absolute inset-x-0 bottom-0 overflow-hidden" style={{ height: `${vol}%` }}>
                <canvas 
                  ref={canvasRef} 
@@ -790,7 +790,7 @@ function GasSim() {
                />
             </div>
 
-            {/* Pressure Gauge Integration */}
+            {}
             <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-32 flex flex-col items-center">
                <div className="w-1 h-8 bg-slate-700" />
                <div className="w-10 h-10 rounded-full bg-slate-800 border-2 border-slate-600 flex items-center justify-center">
@@ -799,7 +799,7 @@ function GasSim() {
             </div>
           </div>
           
-          {/* Heat Source */}
+          {}
           <div className="mt-4 flex flex-col items-center">
             <div className={`w-12 h-12 rounded-full blur-xl transition-all duration-1000 ${temp > 400 ? 'bg-orange-500/50' : 'bg-transparent'}`} />
             <motion.div 
@@ -815,9 +815,9 @@ function GasSim() {
   );
 }
 
-// Removing obsolete GasParticle component as it's replaced by Canvas logic
 
-// 3. Mole Calculations (Atomik Terazi)
+
+
 function MoleCalcSim() {
   const [substance, setSubstance] = useState('H2O');
   const [mass, setMass] = useState(18);
@@ -903,7 +903,7 @@ function MoleCalcSim() {
                   exit={{ opacity: 0, scale: 1.1 }}
                   className="relative p-12 bg-white/5 rounded-[3rem] border border-white/10 shadow-2xl flex flex-col items-center"
                 >
-                  {/* Balance Body */}
+                  {}
                   <div className="w-64 h-8 bg-slate-700 rounded-lg relative">
                     <motion.div 
                       animate={{ rotate: (mass - 100) / 15 }}
@@ -961,7 +961,7 @@ function MoleCalcSim() {
   );
 }
 
-// 4. Physical vs Chemical Changes (Değişim Laboratuvarı - Geliştirilmiş)
+
 function ChangesSim() {
   const [state, setState] = useState<'idle' | 'processing' | 'result'>('idle');
   const [object, setObject] = useState<string>('buz');
@@ -1075,7 +1075,7 @@ function ChangesSim() {
         </div>
 
         <div className="relative bg-[#050505] rounded-[2.5rem] border border-white/10 p-10 flex flex-col items-center justify-center min-h-[450px] shadow-2xl overflow-hidden group">
-          {/* Reaction Chamber Effect */}
+          {}
           <div className="absolute inset-x-8 inset-y-12 border border-white/5 bg-gradient-to-b from-white/[0.02] to-transparent rounded-[2rem] pointer-events-none" />
           
           <AnimatePresence mode="wait">
@@ -1200,7 +1200,7 @@ function ChangesSim() {
             )}
           </AnimatePresence>
 
-          {/* Educational Sidebar / Bottom Tip */}
+          {}
           <div className="mt-10 p-5 bg-gradient-to-br from-white/5 to-transparent rounded-2xl border border-white/10 w-full relative z-10">
              <div className="flex items-center gap-2 mb-3">
                 <Info className="w-4 h-4 text-orange-400" />
@@ -1223,16 +1223,16 @@ function ChangesSim() {
   );
 }
 
-// 5. Particle View Simulator (Mikroskop Gözlem Evi - Geliştirilmiş Eğitim Modeli)
+
 function ParticleViewSim() {
   const [category, setCategory] = useState<'element' | 'compound' | 'mixture'>('element');
   const [state, setState] = useState<'solid' | 'liquid' | 'gas'>('gas');
-  const [temperature, setTemperature] = useState(300); // Kelvin
+  const [temperature, setTemperature] = useState(300); 
   const [isTestMode, setIsTestMode] = useState(false);
   const [guess, setGuess] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
 
-  // Auto-set state based on temperature
+  
   useEffect(() => {
     if (temperature < 100) setState('solid');
     else if (temperature < 400) setState('liquid');
@@ -1279,7 +1279,7 @@ function ParticleViewSim() {
     setIsTestMode(true);
   };
 
-  // Animation variants based on state
+  
   const getAnimation = (i: number) => {
     const speedMultiplier = temperature / 300;
     
@@ -1309,7 +1309,7 @@ function ParticleViewSim() {
   return (
     <div className="glass-card p-6 md:p-10 border-indigo-500/20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Kontrol Paneli */}
+        {}
         <div className="space-y-8">
           <div className="flex justify-between items-start">
             <div>
@@ -1377,7 +1377,7 @@ function ParticleViewSim() {
             </div>
           )}
 
-          {/* Sıcaklık Kontrolü */}
+          {}
           <div className="p-6 bg-slate-900/50 rounded-3xl border border-white/5 space-y-4">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
@@ -1426,16 +1426,16 @@ function ParticleViewSim() {
           )}
         </div>
 
-        {/* Mikroskop Görüntüsü */}
+        {}
         <div className="relative">
           <div className="aspect-square bg-[#0a0a0c] rounded-full border-[16px] border-slate-800 shadow-[0_0_80px_rgba(0,0,0,0.6)] relative overflow-hidden flex items-center justify-center">
              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] bg-[size:30px_30px]" />
              <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 pointer-events-none bg-[size:100%_2px,3px_100%]" />
              
-             {/* Tanecik Simülasyonu */}
+             {}
              <div className={`relative w-full h-full p-12 flex items-center justify-center ${state === 'solid' ? 'flex-wrap gap-3 max-w-[75%]' : ''}`}>
                {current.parts.map((type, i) => {
-                 // Spacing logic for non-solid
+                 
                  const row = Math.floor(i / 3);
                  const col = i % 3;
                  const baseLeft = 20 + col * 25;
@@ -1468,7 +1468,7 @@ function ParticleViewSim() {
                })}
              </div>
 
-             {/* Objektif Efekti */}
+             {}
              <div className="absolute inset-0 border-[40px] border-black/40 rounded-full pointer-events-none" />
              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 px-4 py-1 bg-black/60 backdrop-blur-md rounded-full border border-white/10 z-20">
                 <span className="text-[10px] font-mono text-indigo-400 animate-pulse tracking-widest">
@@ -1477,7 +1477,7 @@ function ParticleViewSim() {
              </div>
           </div>
 
-          {/* Efsane (Legend) */}
+          {}
           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex gap-6 bg-slate-900 border border-white/10 px-6 py-3 rounded-2xl shadow-xl z-30">
              <div className="flex items-center gap-2">
                <div className="w-3 h-3 rounded-full bg-indigo-500" />

@@ -17,7 +17,7 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-// Initialize analytics conditionally
+
 export let analytics: any = null;
 isSupported().then((supported) => {
   if (supported) {
@@ -25,7 +25,7 @@ isSupported().then((supported) => {
   }
 }).catch(console.error);
 
-// Firestore Error Handler as per security guidelines
+
 export enum OperationType {
   CREATE = 'create',
   UPDATE = 'update',

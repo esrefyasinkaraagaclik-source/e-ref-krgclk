@@ -51,7 +51,7 @@ export function Navbar() {
     setIsMenuOpen(false);
   };
 
-  // Close dropdown on click outside
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (konuRef.current && !konuRef.current.contains(event.target as Node)) {
@@ -65,7 +65,7 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 glass-card rounded-none border-x-0 border-t-0 border-b-white/10 px-4 sm:px-6 h-20 flex items-center">
       <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
-        {/* Left: Logo */}
+        {}
         <Link to="/" className="flex items-center gap-3 group">
           <div className="flex items-center justify-center w-10 h-10 rounded-full border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.2)] overflow-hidden bg-slate-900 shrink-0 group-hover:scale-110 transition-transform">
             <img 
@@ -73,7 +73,7 @@ export function Navbar() {
               alt="ReaksiyonLab Logo" 
               className="w-full h-full object-cover"
               onError={(e) => {
-                e.currentTarget.src = "https://i.hizliresim.com/27jdo2j.png"; // Fallback to current logo
+                e.currentTarget.src = "https://i.hizliresim.com/27jdo2j.png"; 
               }}
               referrerPolicy="no-referrer"
             />
@@ -81,7 +81,7 @@ export function Navbar() {
           <span className="text-xl font-bold font-display tracking-tight text-white hidden sm:block">ReaksiyonLab</span>
         </Link>
 
-        {/* Center: Desktop Navigation */}
+        {}
         <div className="hidden md:flex items-center gap-1">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
@@ -115,7 +115,7 @@ export function Navbar() {
             </Link>
           )}
 
-          {/* Subjects Dropdown */}
+          {}
           <div className="relative" ref={konuRef}>
             <button
               onClick={() => setIsKonuOpen(!isKonuOpen)}
@@ -160,9 +160,9 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Right: User Profile & Mobile Toggle */}
+        {}
         <div className="flex items-center gap-3">
-          {/* TÜBİTAK Logo */}
+          {}
           <div className="hidden lg:flex items-center gap-2 pr-2 border-r border-white/10">
             <img 
               src="https://tubitak.gov.tr/sites/default/files/styles/original/public/2024-03/4006_ana_1.jpg.webp?itok=obkaQC0Z" 
@@ -203,7 +203,7 @@ export function Navbar() {
             </div>
           )}
 
-          {/* Mobile Menu Button */}
+          {}
           <button 
             className="md:hidden p-2 rounded-lg bg-white/5 border border-white/10 text-slate-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -213,7 +213,7 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div

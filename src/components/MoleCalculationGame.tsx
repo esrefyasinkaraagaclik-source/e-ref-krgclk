@@ -34,7 +34,7 @@ export function MoleCalculationGame({ data, onComplete }: MoleCalculationGamePro
           const calculatedScore = Math.max(0, 1000 - (errors * 50) - (timeInSeconds * 2));
           onComplete(calculatedScore);
         }
-      }, 3500); // More time to read math explanations
+      }, 3500); 
     } else {
       setErrors(prev => prev + 1);
       setShowFeedback('incorrect');
@@ -73,7 +73,7 @@ export function MoleCalculationGame({ data, onComplete }: MoleCalculationGamePro
   const RenderParticleVisual = ({ val, sub }: { val: string; sub?: string }) => (
     <div className="relative flex flex-col items-center justify-center h-56 w-full">
       <div className="relative w-40 h-40 border-2 border-cyan-500/50 bg-cyan-950/30 rounded-2xl shadow-[inset_0_0_20px_rgba(34,211,238,0.2)] overflow-hidden flex flex-col items-center justify-center">
-        {/* Animated Particles */}
+        {}
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={i}
@@ -85,7 +85,7 @@ export function MoleCalculationGame({ data, onComplete }: MoleCalculationGamePro
             className="absolute w-2.5 h-2.5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.8)]"
           />
         ))}
-        {/* Value Overlay */}
+        {}
         <div className="z-10 bg-slate-900/90 px-4 py-2 rounded-xl border border-cyan-500/50 backdrop-blur-md shadow-lg">
           <span className="text-cyan-300 font-bold font-mono text-lg">{val}</span>
         </div>
@@ -105,9 +105,9 @@ export function MoleCalculationGame({ data, onComplete }: MoleCalculationGamePro
           <div className="absolute top-2 left-4 w-6 h-10 bg-white/20 rounded-full blur-[2px] rotate-[-20deg]"></div>
           <span className="text-white font-bold font-mono text-xl drop-shadow-md z-10">{val}</span>
         </div>
-        {/* Balloon tie */}
+        {}
         <div className="w-3 h-4 bg-purple-700 mt-[-2px] clip-path-triangle z-0"></div>
-        {/* String */}
+        {}
         <motion.div 
           animate={{ rotate: [-2, 2, -2] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
@@ -158,7 +158,7 @@ export function MoleCalculationGame({ data, onComplete }: MoleCalculationGamePro
           ))}
         </div>
 
-        {/* Feedback Overlay */}
+        {}
         <AnimatePresence>
           {showFeedback && (
             <motion.div

@@ -102,7 +102,7 @@ export function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
-          {/* Feedback Form */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -220,7 +220,7 @@ export function ContactSection() {
             </form>
           </motion.div>
 
-          {/* Developer Cards */}
+          {}
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
               {developers.map((dev, index) => (
@@ -271,7 +271,7 @@ export function ContactSection() {
         </div>
       </div>
 
-      {/* Decorative Blur */}
+      {}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
     </section>
   );

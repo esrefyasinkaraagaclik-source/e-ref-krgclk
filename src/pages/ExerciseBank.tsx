@@ -18,7 +18,7 @@ const ExerciseBank = () => {
   const [userAnswers, setUserAnswers] = useState<Record<string, any>>({});
   const [showResults, setShowResults] = useState<Record<string, boolean>>({});
 
-  // Notify AI Assistant about the selected theme
+  
   React.useEffect(() => {
     localStorage.setItem('active-exercise-theme', selectedThemeId);
     const event = new CustomEvent('exercise-theme-changed', { detail: { themeId: selectedThemeId } });
@@ -57,7 +57,7 @@ const ExerciseBank = () => {
           </p>
         </div>
 
-        {/* Konu Seçiciler */}
+        {}
         <div className="flex flex-wrap gap-3 mb-10">
           {curriculum.map(theme => (
             <button

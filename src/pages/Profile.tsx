@@ -52,13 +52,13 @@ export function Profile() {
 
   const userBadges = userProfile.badges || [];
   const level = Math.floor((userProfile.totalScore || 0) / 500) + 1;
-  const progressToNextLevel = ((userProfile.totalScore || 0) % 500) / 5; // Percentage
+  const progressToNextLevel = ((userProfile.totalScore || 0) % 500) / 5; 
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="max-w-4xl mx-auto">
         
-        {/* Profile Header Card */}
+        {}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -112,9 +112,9 @@ export function Profile() {
           </div>
         </motion.div>
 
-        {/* Stats Grid */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          {/* Achievements / Badges Section */}
+          {}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -152,7 +152,7 @@ export function Profile() {
             )}
           </motion.div>
 
-          {/* Activity Section */}
+          {}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -198,7 +198,7 @@ export function Profile() {
           </motion.div>
         </div>
 
-        {/* Action Button */}
+        {}
         <div className="text-center">
           <Link 
             to="/leaderboard"

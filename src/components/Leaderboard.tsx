@@ -84,7 +84,7 @@ export function Leaderboard() {
       } catch (error: any) {
         console.error("Skor tablosu yüklenirken hata:", error);
         
-        // Handle the error according to the AI Studio instructions
+        
         if (error.message?.includes('permission') || error.code === 'permission-denied') {
           try {
             handleFirestoreError(error, OperationType.LIST, path);

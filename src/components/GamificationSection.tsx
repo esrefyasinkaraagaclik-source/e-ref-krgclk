@@ -30,7 +30,7 @@ export function GamificationSection() {
     <section className="py-24 px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="max-w-7xl mx-auto">
         <div className="glass-card border-cyan-500/20 p-8 md:p-12 relative overflow-hidden">
-          {/* Background Glow */}
+          {}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-2xl bg-cyan-500/10 blur-3xl rounded-full z-0 pointer-events-none" />
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

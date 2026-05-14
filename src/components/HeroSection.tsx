@@ -10,7 +10,7 @@ export function HeroSection({ onStart }: HeroSectionProps) {
     <section className="relative min-h-screen flex items-center justify-center pt-20 pb-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
-        {/* Text Content */}
+        {}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -49,14 +49,14 @@ export function HeroSection({ onStart }: HeroSectionProps) {
           </div>
         </motion.div>
 
-        {/* Visual Content */}
+        {}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
           className="relative h-[400px] sm:h-[500px] flex items-center justify-center z-10"
         >
-          {/* Central Atom/Molecule */}
+          {}
           <div className="relative w-64 h-64 flex items-center justify-center">
             <div className="absolute inset-0 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
             <div className="w-48 h-48 rounded-full border-4 border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.5)] overflow-hidden bg-slate-900 z-10 flex items-center justify-center">
@@ -71,7 +71,7 @@ export function HeroSection({ onStart }: HeroSectionProps) {
               />
             </div>
             
-            {/* Orbiting Electrons */}
+            {}
             <div className="absolute inset-0 border border-cyan-500/30 rounded-full animate-[spin_10s_linear_infinite]">
               <div className="absolute -top-2 left-1/2 w-4 h-4 bg-violet-400 rounded-full shadow-[0_0_10px_rgba(139,92,246,0.8)]"></div>
             </div>

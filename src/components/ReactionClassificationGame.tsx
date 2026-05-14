@@ -14,12 +14,12 @@ export function ReactionClassificationGame({ data, onComplete }: ReactionClassif
   const [errors, setErrors] = useState(0);
   const [startTime] = useState(Date.now());
   const [isFinished, setIsFinished] = useState(false);
-  const [animationKey, setAnimationKey] = useState(0); // to retrigger animation
+  const [animationKey, setAnimationKey] = useState(0); 
 
   const currentItem = data.items[currentIndex];
 
   useEffect(() => {
-    // Retrigger animation on new item
+    
     setAnimationKey(prev => prev + 1);
   }, [currentIndex]);
 
@@ -38,7 +38,7 @@ export function ReactionClassificationGame({ data, onComplete }: ReactionClassif
           const calculatedScore = Math.max(0, 1000 - (errors * 50) - (timeInSeconds * 2));
           onComplete(calculatedScore);
         }
-      }, 2500); // give enough time to read explanation
+      }, 2500); 
     } else {
       setErrors(prev => prev + 1);
       setShowFeedback('incorrect');
@@ -50,26 +50,26 @@ export function ReactionClassificationGame({ data, onComplete }: ReactionClassif
     return null;
   }
 
-  // Generate stylized representation of equation based on animation mode
+  
   const renderInteractiveAnimation = (item: ReactionTypeItem) => {
     return (
       <div className="relative min-h-64 sm:min-h-80 w-full bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-center p-4 sm:p-8 overflow-hidden" key={`anim-${animationKey}`}>
         
-        {/* Background Beaker */}
+        {}
         <div className="absolute opacity-10 flex flex-col items-center pointer-events-none">
            <Beaker className="w-48 h-48 sm:w-64 sm:h-64" />
         </div>
 
         <div className="z-10 flex flex-col w-full h-full justify-evenly items-center gap-6">
           
-          {/* Reaction Equation Full string with nice formatting */}
+          {}
           <div className="text-lg sm:text-2xl lg:text-3xl font-mono text-cyan-300 bg-slate-900/80 px-4 sm:px-6 py-3 rounded-xl border border-slate-700/50 flex w-full max-w-full overflow-hidden text-center justify-center break-words break-all sm:break-normal whitespace-pre-wrap leading-relaxed shadow-lg">
              {item.equation}
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 w-full">
             
-            {/* Reactants Container */}
+            {}
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
               {item.reactants.map((reactant, idx) => (
                 <motion.div 
@@ -95,7 +95,7 @@ export function ReactionClassificationGame({ data, onComplete }: ReactionClassif
               ))}
             </div>
 
-            {/* Reaction Arrow animation */}
+            {}
             <motion.div 
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -113,7 +113,7 @@ export function ReactionClassificationGame({ data, onComplete }: ReactionClassif
               ➔
             </motion.div>
 
-            {/* Products Container */}
+            {}
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
               {item.products.map((product, idx) => (
                 <motion.div 
@@ -126,7 +126,7 @@ export function ReactionClassificationGame({ data, onComplete }: ReactionClassif
                   <motion.div 
                     animate={
                       product.state === '(k)' || product.state === '(s)' || item.animationType === 'precipitation' 
-                        ? { y: [0, 20, 0] } // Solid drops down
+                        ? { y: [0, 20, 0] } 
                         : item.animationType === 'redox' 
                           ? { rotate: [0, 10, -10, 0] }
                           : { y: [0, -5, 0] }
@@ -186,7 +186,7 @@ export function ReactionClassificationGame({ data, onComplete }: ReactionClassif
           ))}
         </div>
 
-        {/* Feedback Overlay */}
+        {}
         <AnimatePresence>
           {showFeedback && (
             <motion.div
